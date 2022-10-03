@@ -6,10 +6,11 @@
 
 <div class="text-center">
 <h1 class="autenticacion">AUTENTICACION</h1>
-  <form asp-page-handler="guardallave" method="post">
-  <label for="fname">PFX:</label><br>
-  <input id="the-file" type="file" name="name"><br><br>
-  <label for="lname">Password:</label><input type="text" id="lname" name="lname" value=""><br><br>
+  <form asp-page-handler="guardallave" method="post" enctype="multipart/form-data">
+   <label asp-for="SubirArchivo.Archivo">PFX:</label><br>
+   <input asp-for="SubirArchivo.Archivo"><br><br>
+   <label asp-for="SubirArchivo.Contrasena">Password:</label>
+   <input asp-for="SubirArchivo.Contrasena"><br><br>
   <input type="submit" id="enviar" OnClick="Button1_Click" value="Enviar">
   </form> 
-</div>
+</div>  

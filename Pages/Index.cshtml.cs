@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CFDIWEB.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace CFDIWEB.Pages;
 
@@ -7,9 +9,16 @@ public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    private IDescargaMasiva _descargaservice;
+
+    [BindProperty]
+
+    public SubirArchivoModel SubirArchivo { get; set; }
+
+    public IndexModel(ILogger<IndexModel> logger, IDescargaMasiva  descargaservice)
     {
         _logger = logger;
+        _descargaservice = descargaservice;
     }
 
     public void OnGet()
@@ -17,8 +26,23 @@ public class IndexModel : PageModel
     
     }
 
-    public void OnPostGuardallave(String name, String lname){
+    public void OnPostGuardallave(){
         Console.Write("Este es tu request");
-        Console.Write(lname);
+        Console.Write(SubirArchivo.Contrasena);
+        Console.Write(SubirArchivo.Archivo);
+
+        var memoryStream = new MemoryStream();
+        SubirArchivo.Archivo.CopyTo(memoryStream);
+        byte[] byteArray = memoryStream.ToArray();
+
+        _descargaservice.DescargaCFDI(byteArray, SubirArchivo.Contrasena);
+    }
+
+    public class SubirArchivoModel
+    {
+        public string Contrasena { get; set; }
+
+        public IFormFile Archivo { get; set; }
+
     }
 }
