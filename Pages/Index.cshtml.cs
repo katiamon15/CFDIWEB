@@ -45,4 +45,6 @@ public class IndexModel : PageModel
         public IFormFile Archivo { get; set; }
 
     }
+
+
 }
