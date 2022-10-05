@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Autenticación";
 }
-
 <div class="text-center">
 <h1 class="autenticacion">AUTENTICACION</h1>
   <form asp-page-handler="guardallave" method="post" enctype="multipart/form-data">
@@ -13,4 +12,6 @@
    <input asp-for="SubirArchivo.Contrasena"><br><br>
   <input type="submit" id="enviar" OnClick="Button1_Click" value="Enviar">
   </form> 
+
+
 </div>  

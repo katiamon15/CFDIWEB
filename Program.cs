@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient<IHttpSoapClient, HttpSoapClient>();
 builder.Services.AddTransient<IAutenticacionService, AutenticacionService>();
 builder.Services.AddTransient<IDescargaMasiva, DescargaMasiva>();
+builder.Services.AddTransient<ISolicitudService, SolicitudService>();
 
 
 // Add services to the container.
