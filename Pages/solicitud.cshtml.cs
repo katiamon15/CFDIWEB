@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CFDIWEB.Pages
 {
-    public class Index1Model : PageModel
+    public class  SolicitudModel : PageModel
     {
-        public void OnGet()
-        {
-        }
+       
+
+
     }
 }
