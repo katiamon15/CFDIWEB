@@ -32,8 +32,6 @@ namespace CFDIWEB.Services
 
             byte[] certificadoPfx = byteArray;
             var certificadoPassword = keyFile;
-            
-
             _logger.LogInformation("Creando el certificado SAT con el certificado PFX y contrasena.");
             X509Certificate2 certificadoSat = X509Certificate2Helper.GetCertificate(certificadoPfx, certificadoPassword);
 
@@ -58,5 +56,8 @@ namespace CFDIWEB.Services
 
             _logger.LogInformation("La solicitud de autenticacion fue exitosa. AccessToken:{0}", autenticacionResult.AccessToken.DecodedValue);
         }
+
+        
     }
+
 }

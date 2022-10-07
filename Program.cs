@@ -1,8 +1,18 @@
+using CFDIWEB.Data;
 using CFDIWEB.Interfaces;
 using CFDIWEB.Services;
+using CFDIWEB.Models.Entity;
+using Microsoft.EntityFrameworkCore;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+var cns = "Data Source= .; Initial Catalog = master; Integrated security= True";
+
+builder.Services.AddDbContext<MyAppDbContext>(options => {
+    options.UseSqlServer(cns);
+});
 builder.Services.AddHttpClient<IHttpSoapClient, HttpSoapClient>();
 builder.Services.AddTransient<IAutenticacionService, AutenticacionService>();
 builder.Services.AddTransient<IDescargaMasiva, DescargaMasiva>();

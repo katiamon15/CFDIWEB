@@ -1,6 +1,7 @@
 ﻿using CFDIWEB.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using CFDIWEB.Models;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace CFDIWEB.Pages;
@@ -23,7 +24,7 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-    
+     
     }
 
     public void OnPostGuardallave(){
@@ -38,13 +39,7 @@ public class IndexModel : PageModel
         _descargaservice.DescargaCFDI(byteArray, SubirArchivo.Contrasena);
     }
 
-    public class SubirArchivoModel
-    {
-        public string Contrasena { get; set; }
-
-        public IFormFile Archivo { get; set; }
-
-    }
+    
 
 
 }

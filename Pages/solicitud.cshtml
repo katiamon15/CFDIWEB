@@ -13,56 +13,89 @@
     <form name="fechas" method="post" action="">
         <div class="row">
             <div class="col col-sm-5">
-                <label for="uuid2" class="form-label">Folio Fiscal:*</label>
-                <input name="uuid2" class="form-control">
+                <label asp-for="SolicitudArchivo.uuid" for="uuid2" class="form-label">Folio Fiscal:*</label>
+                <input asp-for="SolicitudArchivo.uuid" name="uuid2" class="form-control">
             </div>
         </div>
   
         <div class="row">
-            <div class="col col-sm-3"
-                <label for="fecha" class="form-label">Selecciona la fecha Inicial deseada:</label>
-                <input type="date" name="fecha"  class="form-control" />
+            <div class="col col-sm-3">
+                <label asp-for="SolicitudArchivo.FechaInicial" for="fecha" class="form-label">*Selecciona la fecha Inicial deseada:</label>
+                <input asp-for="SolicitudArchivo.FechaInicial" type="date" name="fecha" class="form-control" />
             </div>
-            <div class="col col-sm-3"
-                <label for="fechafin" class="form-label">Selecciona la fecha Final deseada:</label>
-                <input type="date" name="fechafin"  class="form-control" />
+            <div class="col col-sm-3">
+                <label asp-for="SolicitudArchivo.FechaFin" for="fechafin" class="form-label">*Selecciona la fecha Final deseada:</label>
+                <input asp-for="SolicitudArchivo.FechaFin" type="date" name="fechafin" class="form-control" />
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col col-sm-4">
+                <label asp-for="SolicitudArchivo.rfcemisor" form="rfce" class="form-label">*Rfc Emisor:</label>
+                <input asp-for="SolicitudArchivo.rfcemisor" name="rfce" class="form-control" />
+            </div>
+            <div class="col col-sm-4">
+                <label asp-for="SolicitudArchivo.rfcreceptor" form="rfcr" class="form-label">*Rfc Receptor:</label>
+                <input asp-for="SolicitudArchivo.rfcreceptor" name="rfcr" class="form-control" />
+            </div>
+            <div class="col col-sm-4">
+                <label asp-for="SolicitudArchivo.rfcsolicitante" form="rfcs" class="form-label">*Rfc Solicitante:</labe>
+                <input asp-for="SolicitudArchivo.rfcsolicitante" name="rfcs" class="form-control" />
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col col-sm-6">
+                <label asp-form="SolicitudArchivo.tiposolicitud" name="tiposolicitud" class="form-label">Tipo Solicitud:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1"> Metadata </label>
+                </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">Cfdi </label>
+                 </div>
+                
+            </div>
+        </div>
+       
+            
+        <div class="row">
+            <div class="col col-sm-5">
+                <label name="tipocomprobante" for="editors" >Tipo Comprobante:</label>
+                <select name="editor" id="editor" class="form-select">
+                    <option value="Null">Ninguno</option>
+                    <option value="I">Ingreso</option>
+                    <option value="E">Egreso</option>
+                    <option value="T">Translado</option>
+                    <option value="N">Nomina</option>
+                    <option value="P">Pago</option>
+                </select>
             </div>
         </div>
 
-        <!-- Campo de entrada de hora -->
-    
-        <label name="RFCE">RFC EMISOR:</label>
-        <input name="rfce">
-        <label name="RFCR">RFC RECPETOR:</label>
-        <input name="rfcr">
-        <label name="RFCS">RFC SOLICITANTE:</label>
-        <input name="rfcs">
+        <div class="row">
+            <div class="col col-sm-5">
+                <label name="estadocom" for=" editors">Estado Complemento:</label>
+                <select name=" editor2" id="editor2" class="form-select">
+                    <option value="Null">Ninguno</option>
+                    <option value="0">Vigente</option>
+                    <option value="1">Cancelada</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col col-sm-5">
+                <label name="estadocom" for="editors">Complemento:</label>
+                <select name="editor1" id="editor1" class="form-select" asp-items="Model.Complementos">
+                    <option value="Null">Selecciona una opcion</option>
+                </select>
+            </div>
+        </div>
 
-
-        <label name="tiposolicitud">Tipo Solicitud:</label>
-        <label>
-            <input type="radio" name="meta"> METADATA
-        </label>
-        <label>
-            <input type="radio" name="cfdi"> CFDI
-        </label>
-        <br>
-        <br>
-        <label name="tipocomprobante" for="editors">Tipo Comprobante:</label>
-        <select name="editor" id="editor">
-        <option value="Null"> Ninguno</option>
-        <option value="I"> Ingreso</option>
-        <option value="E"> Egreso</option>
-        <option value="T"> Translado</option>
-        </select>
- 
-        <label name="estadocom" for="editors">Estado Comprobante:</label>
-        <select name="editor1" id="editor1" class="form-select">
-            <option value="Null"> Ninguno</option>
-            <option value="0"> Cancelado</option>
-            <option value="1"> Vigente</option>
-        </select>
-         <input type="submit" class="btn btn-primary"></input>
+            <input type="submit" class="btn btn-primary"> </input>
     </form>
 </div>
 
