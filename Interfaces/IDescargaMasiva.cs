@@ -1,4 +1,5 @@
 ﻿using CFDIWEB.Enumerations;
+using CFDIWEB.Models;
 using System.Drawing;
 
 namespace CFDIWEB.Interfaces
@@ -6,10 +7,12 @@ namespace CFDIWEB.Interfaces
 
     public interface IDescargaMasiva
     {
-        public void DescargaCFDI(byte[] byteArray, String keyFile);
+        public Task DescargaCFDI(Session session);
+    }
 
-        public void SolicitudCFDI( );
-
+    public interface ISolicitudDescarga
+    {
+        public void SolicitarCFDI(String uuid, DateTime FechaInicial, DateTime FechaFin, String rfcReceptores,String rfcEmisor,String rfcSolicitante, int tipoComprobante,String RfcACuentaTerceros, String Complemento);
     }
 
 

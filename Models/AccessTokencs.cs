@@ -10,7 +10,7 @@ namespace CFDIWEB.Models
     /// </summary>
     public class AccessToken
     {
-        private AccessToken(string value)
+        public AccessToken(string value)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }

@@ -8,46 +8,45 @@
     <h1 class="autenticacion">SOLICITUD</h1>
 </div>
 
-
 <div class="container">
     <form name="fechas" method="post" action="">
         <div class="row">
             <div class="col col-sm-5">
-                <label asp-for="SolicitudArchivo.uuid" for="uuid2" class="form-label">Folio Fiscal:*</label>
-                <input asp-for="SolicitudArchivo.uuid" name="uuid2" class="form-control">
+                <label asp-for="SolicitudForm.UUID" for="uuid2" class="form-label">Folio Fiscal:*</label>
+                <input asp-for="SolicitudForm.UUID" name="uuid2" class="form-control">
             </div>
         </div>
   
         <div class="row">
             <div class="col col-sm-3">
-                <label asp-for="SolicitudArchivo.FechaInicial" for="fecha" class="form-label">*Selecciona la fecha Inicial deseada:</label>
-                <input asp-for="SolicitudArchivo.FechaInicial" type="date" name="fecha" class="form-control" />
-            </div>
+                <label asp-for="SolicitudForm.FechaInicial" for="fecha" class="form-label">*Selecciona la fecha Inicial deseada:</label>
+                <input asp-for="SolicitudForm.FechaInicial" type="date" name="fecha" class="form-control" />
+            </div>  
             <div class="col col-sm-3">
-                <label asp-for="SolicitudArchivo.FechaFin" for="fechafin" class="form-label">*Selecciona la fecha Final deseada:</label>
-                <input asp-for="SolicitudArchivo.FechaFin" type="date" name="fechafin" class="form-control" />
+                <label asp-for="SolicitudForm.FechaFin" for="fechafin" class="form-label">*Selecciona la fecha Final deseada:</label>
+                <input asp-for="SolicitudForm.FechaFin" type="date" name="fechafin" class="form-control" />
             </div>
         </div>
     
         <div class="row">
             <div class="col col-sm-4">
-                <label asp-for="SolicitudArchivo.rfcemisor" form="rfce" class="form-label">*Rfc Emisor:</label>
-                <input asp-for="SolicitudArchivo.rfcemisor" name="rfce" class="form-control" />
+                <label asp-for="SolicitudForm.rfcEmisor" form="rfce" class="form-label">*Rfc Emisor:</label>
+                <input asp-for="SolicitudForm.rfcEmisor" name="rfce" class="form-control" />
             </div>
             <div class="col col-sm-4">
-                <label asp-for="SolicitudArchivo.rfcreceptor" form="rfcr" class="form-label">*Rfc Receptor:</label>
-                <input asp-for="SolicitudArchivo.rfcreceptor" name="rfcr" class="form-control" />
+                <label asp-for="SolicitudForm.rfcReceptores" form="rfcr" class="form-label">*Rfc Receptor:</label>
+                <input asp-for="SolicitudForm.rfcReceptores" name="rfcr" class="form-control" />
             </div>
             <div class="col col-sm-4">
-                <label asp-for="SolicitudArchivo.rfcsolicitante" form="rfcs" class="form-label">*Rfc Solicitante:</labe>
-                <input asp-for="SolicitudArchivo.rfcsolicitante" name="rfcs" class="form-control" />
+                <label asp-for="SolicitudForm.rfcSolicitante" form="rfcs" class="form-label">*Rfc Solicitante:</label>
+                <input asp-for="SolicitudForm.rfcSolicitante" name="rfcs" class="form-control" /> 
             </div>
 
         </div>
 
         <div class="row">
             <div class="col col-sm-6">
-                <label asp-form="SolicitudArchivo.tiposolicitud" name="tiposolicitud" class="form-label">Tipo Solicitud:</label>
+                <label asp-for="SolicitudForm.TipoSolicitud" name="tiposolicitud" class="form-label">Tipo Solicitud:</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                     <label class="form-check-label" for="flexRadioDefault1"> Metadata </label>

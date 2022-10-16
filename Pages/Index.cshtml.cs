@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CFDIWEB.Models;
 using Microsoft.AspNetCore.WebUtilities;
+using System;
+using System.Text;
+using System.Threading;
 
 namespace CFDIWEB.Pages;
 
@@ -11,7 +14,6 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
 
     private IDescargaMasiva _descargaservice;
-
     [BindProperty]
 
     public SubirArchivoModel SubirArchivo { get; set; }
@@ -27,7 +29,7 @@ public class IndexModel : PageModel
      
     }
 
-    public void OnPostGuardallave(){
+    public async Task OnPostGuardallave(){
         Console.Write("Este es tu request");
         Console.Write(SubirArchivo.Contrasena);
         Console.Write(SubirArchivo.Archivo);
@@ -36,10 +38,20 @@ public class IndexModel : PageModel
         SubirArchivo.Archivo.CopyTo(memoryStream);
         byte[] byteArray = memoryStream.ToArray();
 
-        _descargaservice.DescargaCFDI(byteArray, SubirArchivo.Contrasena);
+        Session Session = new Session();
+        Session.PfxUrl = Convert.ToBase64String(byteArray);
+        Session.PfxPassword = SubirArchivo.Contrasena;
+
+         await _descargaservice.DescargaCFDI(Session);
+        
+        HttpContext.Session.SetString("pfx", Session.PfxUrl);
+        HttpContext.Session.SetString("passwordpfx", Session.PfxPassword);
+        HttpContext.Session.SetString("tokenSat",Session.TokenSat);
+
+        _logger.LogInformation("Obtuvo informacion del token");
     }
 
-    
+
 
 
 }

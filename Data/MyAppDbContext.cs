@@ -8,6 +8,8 @@ namespace CFDIWEB.Data
     {
         public DbSet<Complemento> Complemento { get; set; }
 
+        public DbSet<Solicitud> Solicitud { get; set; }  
+
         public MyAppDbContext(DbContextOptions<MyAppDbContext> options) : base(options)
         {
 
