@@ -15,7 +15,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Net;
 
 namespace CFDIWEB.Services
 {
@@ -25,7 +25,7 @@ namespace CFDIWEB.Services
         private IAutenticacionService _authService;
         private ISolicitudService _solicitudService;
         private MyAppDbContext _context;
-        private IHttpContextAccessor _accessor;
+        private readonly IHttpContextAccessor _accessor;
 
 
         public DescargaMasiva(ILogger<DescargaMasiva> logger, IAutenticacionService authService,ISolicitudService solicitudService
@@ -38,9 +38,10 @@ namespace CFDIWEB.Services
             _accessor = accessor;
         }
 
+        //Autenticacion
         public async Task DescargaCFDI(Session session)
         {
-
+            var context = _accessor.HttpContext;
 
             CancellationTokenSource cancellationTokenSource = new();
             CancellationToken cancellationToken = cancellationTokenSource.Token;
@@ -79,23 +80,27 @@ namespace CFDIWEB.Services
             session.TokenSat = autenticacionResult.AccessToken.DecodedValue;
             //session.Timestamp = GetTimestamp(DateTime.Now);
             _logger.LogInformation("La solicitud de autenticacion fue exitosa. AccessToken:{0}", autenticacionResult.AccessToken.DecodedValue);
+
+            if (context != null) { 
+                context.Session.SetString("pfx", session.PfxUrl);
+                context.Session.SetString("passwordpfx", session.PfxPassword);
+                context.Session.SetString("tokenSat", session.TokenSat);
+                context.Session.SetString("dateRefresh", DateTime.Now.ToString("dd/MM/yyyyHH:mm:ss"));
+            }
+
+            _logger.LogInformation("Obtuvo informacion del token");
+
         }
 
         //solicitud
-        
 
-        public async void DescargaCFDI(SolicitudForm solicitudF)
+        public async Task SolicitudCFDI(SolicitudForm solicitudF, Session session)
         {
-            HttpContext context = _accessor.HttpContext;
+            var context = _accessor.HttpContext;
 
-            CancellationTokenSource cancellationTokenSource = new();
-            CancellationToken cancellationToken = cancellationTokenSource.Token;
+                await DescargaCFDI(session);
 
-            byte[] certificadoPfx = Encoding.ASCII.GetBytes(context.Session.GetString("pfx"));
-            var certificadoPassword = context.Session.GetString("passwordpfx");
-
-            _logger.LogInformation("Creando el certificado SAT con el certificado PFX y contrasena.");
-            X509Certificate2 certificadoSat = X509Certificate2Helper.GetCertificate(certificadoPfx, certificadoPassword);
+            _logger.LogInformation("Fecha actual del token {}",session.Timestamp);
 
             //private void creaSolicitudAlmacen(){}
 
@@ -116,20 +121,19 @@ namespace CFDIWEB.Services
             var rfcSolicitante = solicitudF.rfcSolicitante;
 
 
-
             //solicitudEntity.uuid = "111AAA1A-1AA1-1A11-11A1-11A1AA111A11";
-
             _logger.LogInformation("Buscando el servicio de solicitud de descarga en el contenedor de servicios (Dependency Injection).");
 
     
             AccessToken accessToken=new AccessToken(""); 
             try
             {
-                string token = context.Session.GetString("tokenSat");
-                accessToken = new AccessToken(token);
+  
+                accessToken = new AccessToken(session.TokenSat);
                 
             }catch(Exception e){
                 _logger.LogError("La session no contiene el token del sat");
+                _logger.LogError(e.Message);
                 throw new Exception("No se pudo obtener el token del SAT");
             }
 
@@ -144,11 +148,11 @@ namespace CFDIWEB.Services
                 accessToken);
 
 
-            _logger.LogInformation("Enviando solicitud de solicitud de descarga.");
-            SolicitudResult solicitudResult = await _solicitudService.SendSoapRequestAsync(solicitudRequest, certificadoSat, cancellationToken);
+            /*_logger.LogInformation("Enviando solicitud de solicitud de descarga.");
+            SolicitudResult solicitudResult = await _solicitudService.SendSoapRequestAsync(solicitudRequest, certificadoSat, cancellationToken);*/
 
-            /*SolicitudResult solicitudResult = SolicitudResult.CreateInstance("a804e8a7-efac-4333-92ac-83a79c649f2d",
-                "5000", "Solicitud aceptada", HttpStatusCode.Accepted, "Mensaje respuesta SAT");*/
+           SolicitudResult solicitudResult = SolicitudResult.CreateInstance("a804e8a7-efac-4333-92ac-83a79c649f2d",
+                "5000", "Solicitud aceptada", HttpStatusCode.Accepted, "Mensaje respuesta SAT");
 
             Solicitud solicitudEntity = new Solicitud();
             solicitudEntity.FechaInicial = fechaInicio;
@@ -165,7 +169,7 @@ namespace CFDIWEB.Services
             try
             {
                 _context.Solicitud.Add(solicitudEntity);
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -183,8 +187,14 @@ namespace CFDIWEB.Services
 
             _logger.LogInformation("La solicitud de solicitud de descarga fue exitosa. RequestId:{0}", solicitudResult.RequestId);
 
-
         }
+
+        // Verififcacion 
+
+        public async Task VerificacionCFDI(VerificacionForm verificacionF, Session session)
+        {
+            var context = _accessor.HttpContext;
+        } 
     }
 
    

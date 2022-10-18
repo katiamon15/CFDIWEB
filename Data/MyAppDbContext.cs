@@ -10,6 +10,8 @@ namespace CFDIWEB.Data
 
         public DbSet<Solicitud> Solicitud { get; set; }  
 
+        public DbSet<Verificacion> Verificacion { get; set; }
+
         public MyAppDbContext(DbContextOptions<MyAppDbContext> options) : base(options)
         {
 

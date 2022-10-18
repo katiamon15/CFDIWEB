@@ -1,4 +1,45 @@
-﻿@{
-    Layout = "Verificacion";
+﻿@page
+@model CFDIWEB.Pages.verificacionModel
+@{
+    ViewData["Title"] = "Verificacion";
 }
+@Html.AntiForgeryToken()
+<h1>Verifficacion</h1>
 
+<input type="button" value="Consulta" onclick="javascript:Get()" />
+<div id="Verificacion1" >
+    <table id="prodTable" class="table">
+        <tr>
+            <th align="center" width="50">Folio solicitud Sat</th>
+            <th align="center" width="50">Mensaje Solicitud</th>
+        </tr>
+    </table>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        urlPostDatos = "@Url.Page("/validacion")?handler=Datos";
+        function Get() {
+            fetch(urlPostDatos, {
+                method: "post",
+                headers:
+                {
+                    "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val()
+                }
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                var table = document.getElementById('prodTable');
+                data.forEach((object) => {
+                    var tr = document.createElement('tr');
+                        tr.innerHTML = '<td>' + object.idSolicitudSat + '</td>' +
+                            '<td>' + object.mensaje + '</td>'
+                    table.appendChild(tr);
+                });
+            });
+        }
+    </script>
+}

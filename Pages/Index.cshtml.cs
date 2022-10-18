@@ -41,17 +41,10 @@ public class IndexModel : PageModel
         Session Session = new Session();
         Session.PfxUrl = Convert.ToBase64String(byteArray);
         Session.PfxPassword = SubirArchivo.Contrasena;
-
+         
          await _descargaservice.DescargaCFDI(Session);
         
-        HttpContext.Session.SetString("pfx", Session.PfxUrl);
-        HttpContext.Session.SetString("passwordpfx", Session.PfxPassword);
-        HttpContext.Session.SetString("tokenSat",Session.TokenSat);
-
-        _logger.LogInformation("Obtuvo informacion del token");
+   
     }
-
-
-
 
 }

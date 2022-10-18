@@ -14,7 +14,7 @@ builder.Services.AddDbContext<MyAppDbContext>(options => {
     options.UseSqlServer(cns);
 });
 builder.Services.AddSession(options =>{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.IdleTimeout = TimeSpan.FromMinutes(120);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -22,7 +22,8 @@ builder.Services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>(
 builder.Services.AddHttpClient<IHttpSoapClient, HttpSoapClient>();
 builder.Services.AddTransient<IAutenticacionService, AutenticacionService>();
 builder.Services.AddTransient<IDescargaMasiva, DescargaMasiva>();
-builder.Services.AddTransient<ISolicitudService, SolicitudService>();
+builder.Services.AddTransient<ISolicitudService, SolicitudService>();  
+builder.Services.AddTransient<IVerificacionService, VerificacionService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 
