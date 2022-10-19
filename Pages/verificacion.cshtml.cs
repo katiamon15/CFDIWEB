@@ -11,6 +11,8 @@ using Microsoft.Build.Framework;
 using CFDIWEB.Interfaces;
 using CFDIWEB.Enumerations;
 using Microsoft.Data.SqlClient.Server;
+using CFDIWEB.Services;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 
 namespace CFDIWEB.Pages
 {
@@ -19,10 +21,10 @@ namespace CFDIWEB.Pages
         private MyAppDbContext _dbContext;
 
         private IDescargaMasiva _descargaservice;
-        
 
-         public List<Solicitud> VerificacionList { get; set; }
-         public List<Verificacion> verificacions { get; set; }
+
+        public List<Solicitud> VerificacionList { get; set; }
+        public  List<Verificacion> verificacions { get; set; }
         public verificacionModel(MyAppDbContext dbContext, IDescargaMasiva descargaservice)
         {
             _dbContext = dbContext;
@@ -31,8 +33,9 @@ namespace CFDIWEB.Pages
 
         public void OnGet()
         {
-            
+        
         }
+       
         public async Task<IActionResult> OnPostVerifica([FromBody]string dato)
         {
             var bodyResponse = new

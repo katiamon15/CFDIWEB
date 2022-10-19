@@ -17,6 +17,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CFDIWEB.Services
 {
@@ -213,9 +214,15 @@ namespace CFDIWEB.Services
             /*
                 Aqui vas a hacer codigo  para primero buscar en base de datos los paquetes si noooooooooooo los encuentras
              */
-
+              
             //***************************Continuas aca
-            
+            List<Verificacion> etityVerificacion = _context.Verificacion.Where(element => element.IdSolicitudSat == verificacionF.IdSolicitudSat).ToList();
+
+            if (etityVerificacion.Count > 0) {
+                _logger.LogInformation("La lista no esta vacia");
+            }
+                      
+
             await DescargaCFDI(session);
 
             CancellationTokenSource cancellationTokenSource = new();
@@ -307,7 +314,6 @@ namespace CFDIWEB.Services
 
                 //Agregar path y nombre del zip
 
-           
                 _context.Verificacion.Add(Entityverificacion);
                 _context.SaveChanges();
 
