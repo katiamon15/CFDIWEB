@@ -4,18 +4,38 @@
     ViewData["Title"] = "Verificacion";
 }
 @Html.AntiForgeryToken()
+
+<style scoped>
+   
+</style>
+
 <h1>Verifficacion</h1>
 
 <input type="button" value="Consulta" onclick="javascript:Get()" />
-<div id="Verificacion1" >
-    <table id="prodTable" class="table">
+
+<div id="Verificacion1">
+    <table id="prodTable" align="left">
         <tr>
-            <th align="center" width="50">Folio solicitud Sat</th>
-            <th align="center" width="50">Mensaje Solicitud</th>
+            <th>Folio Fiscal</th>
+            <th>Fecha Inicial</th>
+            <th>Fecha Final</th>
+            <th>Rfc Emisor</th>
+            <th>Rfc Receptor</th>
+            <th>Rfc Solicitante</th>
+            <th>Tipo Solicitud</th>
+            <th>Tipo Comprobante</th>
+            <th>Estado de Comprobante</th>
+            <th>Complemento</th>
+            <th>Mensaje</th>
+            <th>Id Solicitud</th>
+            <th>Estado Solicitud</th>
+            <th>Descargar</th>
         </tr>
     </table>
 </div>
 
+
+<input type="button" value="Descargar" onclick="javascript:PostVerifica()" />
 @section scripts{
     <script type="text/javascript">
         urlPostDatos = "@Url.Page("/validacion")?handler=Datos";
@@ -29,17 +49,64 @@
             })
             .then(function (response) {
                 return response.json();
+                
             })
             .then((data) => {
                 console.log(data)
                 var table = document.getElementById('prodTable');
                 data.forEach((object) => {
-                    var tr = document.createElement('tr');
-                        tr.innerHTML = '<td>' + object.idSolicitudSat + '</td>' +
-                            '<td>' + object.mensaje + '</td>'
-                    table.appendChild(tr);
+                    var tr = document.createElement('tr',);
+                        tr.innerHTML = '<td class="ps-3 pe-3">' + object.uuid + '</td>' +
+                            '<td class="ps-3 pe-3">' + object.fechaInicial + '</td>' +
+                            '<td class="ps-3 pe-3">' + object.fechaFin + '</td>' +
+                            '<td class="ps-3 pe-3">' + object.rfcEmisor + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.rfcReceptores + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.rfcSolicitante + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.tipoSolicitud + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.tipoComprobante + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.estadoComprobante + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.complemento + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.mensaje + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.idSolicitudSat + ' </td>' +
+                            '<td class="ps-3 pe-3">' + object.estadoSolicitud + ' </td>' +
+                            '<td class="ps-3 pe-3">' + "<button id=\"btn2\" type=\"button\" class=\"btn btn-primary\" style=\"background-color: #0d6efd !Important;\" onclick = \"javascript:PostVerifica()\"> Descargar </button> " + ' </td > '
+                        
+                          table.appendChild(tr); 
+                        
+                        
                 });
+                    table.className = "table table-hover";
             });
+        }
+
+
+
+        urlPostVerifica = "@Url.Page("/validacion  ")?handler=Verifica"
+
+        function PostVerifica() {
+            fetch(urlPostVerifica, {
+                method: "post",
+                body: JSON.stringify("hola mundo"),
+                headers:
+                {
+                    "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val(),
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function (response) {
+                return response.json();
+
+            })
+            .then((data) => {
+                console.log(data)
+            });
+
         }
     </script>
 }
+
+
+
+
+
