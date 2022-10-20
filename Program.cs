@@ -24,6 +24,7 @@ builder.Services.AddTransient<IAutenticacionService, AutenticacionService>();
 builder.Services.AddTransient<IDescargaMasiva, DescargaMasiva>();
 builder.Services.AddTransient<ISolicitudService, SolicitudService>();  
 builder.Services.AddTransient<IVerificacionService, VerificacionService>();
+builder.Services.AddTransient<IDescargaService, DescargaService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 

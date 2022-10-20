@@ -24,7 +24,7 @@ namespace CFDIWEB.Pages
 
 
         public List<Solicitud> VerificacionList { get; set; }
-        public  List<Verificacion> verificacions { get; set; }
+       
         public verificacionModel(MyAppDbContext dbContext, IDescargaMasiva descargaservice)
         {
             _dbContext = dbContext;
@@ -36,11 +36,25 @@ namespace CFDIWEB.Pages
         
         }
        
-        public async Task<IActionResult> OnPostVerifica([FromBody]string dato)
+        public async Task<IActionResult> OnPostVerifica([FromBody]String idSat)
         {
+            var context = HttpContext;
+
+            Session session = new Session();
+            if (context != null)
+            {
+                session.PfxUrl = context.Session.GetString("pfx");
+                session.PfxPassword = context.Session.GetString("passwordpfx");
+                session.TokenSat = context.Session.GetString("tokenSat");
+                session.Timestamp = context.Session.GetString("dateRefresh");
+            }
+
+           await _descargaservice.VerificacionCFDI(idSat, session);
+
             var bodyResponse = new
             {
-                dato = dato
+                dato = "Proceso terminado correctamente"
+                
             };
             return new JsonResult(bodyResponse);
         }

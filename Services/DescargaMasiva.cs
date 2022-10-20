@@ -27,18 +27,21 @@ namespace CFDIWEB.Services
         private IAutenticacionService _authService;
         private ISolicitudService _solicitudService;
         private IVerificacionService _verificacionService;
+        private IDescargaService _descargaService;
         private MyAppDbContext _context;
         private readonly IHttpContextAccessor _accessor;
 
 
         public DescargaMasiva(ILogger<DescargaMasiva> logger, IAutenticacionService authService,ISolicitudService solicitudService
-            , MyAppDbContext context, IHttpContextAccessor accessor)
+            , MyAppDbContext context, IHttpContextAccessor accessor, IVerificacionService verificacionService, IDescargaService descargaService)
         {
             _logger = logger;
             _authService = authService;
             _solicitudService = solicitudService;
             _context = context;
             _accessor = accessor;
+            _descargaService = descargaService;
+            _verificacionService = verificacionService;
         }
 
         //Autenticacion
@@ -209,119 +212,150 @@ namespace CFDIWEB.Services
 
         // Verififcacion 
 
-        public async Task VerificacionCFDI(Verificacion verificacionF, Session session)
+        public async Task VerificacionCFDI(String idSat, Session session)
         {
-            /*
-                Aqui vas a hacer codigo  para primero buscar en base de datos los paquetes si noooooooooooo los encuentras
-             */
-              
-            //***************************Continuas aca
-            List<Verificacion> etityVerificacion = _context.Verificacion.Where(element => element.IdSolicitudSat == verificacionF.IdSolicitudSat).ToList();
+            List<Verificacion> etityVerificacion = _context.Verificacion.Where(element => element.IdSolicitudSat == idSat).ToList();
 
-            if (etityVerificacion.Count > 0) {
+            if (etityVerificacion.Count > 0)
+            {
                 _logger.LogInformation("La lista no esta vacia");
-            }
-                      
-
-            await DescargaCFDI(session);
-
-            CancellationTokenSource cancellationTokenSource = new();
-            CancellationToken cancellationToken = cancellationTokenSource.Token;
-
-            _logger.LogInformation("Iniciando ejemplo de como utilizar los servicios para descargar los CFDIs recibidos del dia de hoy.");
-
-            // Parametros de ejemplo
-            //var rutaCertificadoPfx =@"" + pathFile;
-
-            byte[] certificadoPfx = Convert.FromBase64String(session.PfxUrl);
-            var certificadoPassword = session.PfxPassword;
-
-            _logger.LogInformation("Creando el certificado SAT con el certificado PFX y contrasena.");
-            X509Certificate2 certificadoSat = X509Certificate2Helper.GetCertificate(certificadoPfx, certificadoPassword);
-
-            AccessToken accessToken = new AccessToken("");
-            try
-            {
-
-                accessToken = new AccessToken(session.TokenSat);
 
             }
-            catch (Exception e)
-            {
-                _logger.LogError("La session no contiene el token del sat");
-                _logger.LogError(e.Message);
-                throw new Exception("No se pudo obtener el token del SAT");
+            else {
+                Solicitud SolicitudEntity = _context.Solicitud.Where(u => u.IdSolicitudSat == idSat)
+                          .SingleOrDefault();
+
+                Verificacion verificacionF = new Verificacion();
+                verificacionF.IdSolicitudSat = SolicitudEntity.IdSolicitudSat;
+                verificacionF.rfcSolicitante = SolicitudEntity.rfcSolicitante;
+
+                await DescargaCFDI(session);
+
+                CancellationTokenSource cancellationTokenSource = new();
+                CancellationToken cancellationToken = cancellationTokenSource.Token;
+
+                _logger.LogInformation("Iniciando ejemplo de como utilizar los servicios para descargar los CFDIs recibidos del dia de hoy.");
+
+                // Parametros de ejemplo
+                //var rutaCertificadoPfx =@"" + pathFile;
+
+                byte[] certificadoPfx = Convert.FromBase64String(session.PfxUrl);
+                var certificadoPassword = session.PfxPassword;
+
+                _logger.LogInformation("Creando el certificado SAT con el certificado PFX y contrasena.");
+                X509Certificate2 certificadoSat = X509Certificate2Helper.GetCertificate(certificadoPfx, certificadoPassword);
+
+                AccessToken accessToken = new AccessToken("");
+                try
+                {
+
+                    accessToken = new AccessToken(session.TokenSat);
+
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError("La session no contiene el token del sat");
+                    _logger.LogError(e.Message);
+                    throw new Exception("No se pudo obtener el token del sat");
+                }
+
+
+                _logger.LogInformation("Creando solicitud de verificacion.");
+                var verificacionRequest = VerificacionRequest.CreateInstance(verificacionF.IdSolicitudSat, verificacionF.rfcSolicitante, accessToken);
+
+
+
+                _logger.LogInformation("Enviando solicitud de verificacion.");
+                VerificacionResult verificacionResult = await _verificacionService.SendSoapRequestAsync(verificacionRequest,
+                    certificadoSat,
+                    cancellationToken);
+
+                if (verificacionResult.DownloadRequestStatusNumber != EstadoSolicitud.Terminada.Value.ToString())
+                {
+                    _logger.LogError(
+                        "La solicitud de verificacion no fue exitosa. DownloadRequestStatusNumber:{0} RequestStatusCode:{1} RequestStatusMessage:{2}",
+                        verificacionResult.DownloadRequestStatusNumber,
+                        verificacionResult.RequestStatusCode,
+                        verificacionResult.RequestStatusMessage);
+
+                    throw new Exception();
+                }
+
+
+
+                if (SolicitudEntity != null)
+                {
+                    SolicitudEntity.EstadoSolicitud = EstadoSolicitud.FromValue(Int32.Parse(verificacionResult.DownloadRequestStatusNumber)).Name;
+                    _context.SaveChanges();_logger.LogError(
+                        "El estado de la solicitud no esta Aceptada. Verificar mas tarde");
+                    _logger.LogError("Estado de la solicitud {}", SolicitudEntity.EstadoSolicitud);
+                }
+
+                /*if (verificacionResult.DownloadRequestStatusNumber != EstadoSolicitud.Aceptada.Value.ToString())
+                {
+                    
+                }
+
+                else
+                {
+                    _logger.LogInformation(
+                        "El estado de la solicitud es Aceptada.");
+
+                }*/
+
+
+                _logger.LogInformation("La solicitud de verificacion fue exitosa.");
+
+
+                foreach (string idsPaquete in verificacionResult.PackageIds)
+                {
+                    Verificacion Entityverificacion = new Verificacion();
+                    Entityverificacion.IdSolicitudSat = verificacionF.IdSolicitudSat;
+                    Entityverificacion.rfcSolicitante = verificacionF.rfcSolicitante;
+                    Entityverificacion.Idpaquetes = idsPaquete;
+                    Entityverificacion.Estadosolicitud = Int32.Parse(verificacionResult.DownloadRequestStatusNumber);
+                    Entityverificacion.Codigoestadosolicitud = verificacionResult.DownloadRequestStatusCode;
+                    Entityverificacion.Numerocfdi = Int32.Parse(verificacionResult.NumberOfCfdis);
+                    Entityverificacion.Mensaje = verificacionResult.RequestStatusMessage;
+                    Entityverificacion.Codestatus = verificacionResult.RequestStatusCode;
+                    _context.Verificacion.Add(Entityverificacion);
+                    _context.SaveChanges();
+
+                    _logger.LogInformation("PackageId:{0}", idsPaquete);
+
+                }
+                //Descarga
+
+                var rutaDescarga = @"C:\DescargaMasiva\Cfdi";
+                _logger.LogInformation("Buscando el servicio de verificacion en el contenedor de servicios (Dependency Injection).");
+
+                foreach (string? idsPaquete in verificacionResult.PackageIds)
+                {
+                    _logger.LogInformation("Creando solicitud de descarga.");
+                    var descargaRequest = DescargaRequest.CreateInstace(idsPaquete, SolicitudEntity.rfcSolicitante, accessToken);
+
+                    _logger.LogInformation("Enviando solicitud de descarga.");
+                    DescargaResult? descargaResult = await _descargaService.SendSoapRequestAsync(descargaRequest,
+                        certificadoSat,
+                        cancellationToken);
+
+                    string fileName = Path.Combine(rutaDescarga, $"{idsPaquete}.zip");
+                    byte[] paqueteContenido = Convert.FromBase64String(descargaResult.Package);
+
+                    _logger.LogInformation("Guardando paquete descargado en un archivo .zip en la ruta de descarga.");
+                    using FileStream fileStream = File.Create(fileName, paqueteContenido.Length);
+                    await fileStream.WriteAsync(paqueteContenido, 0, paqueteContenido.Length, cancellationToken);
+                }
+
+                _logger.LogInformation("Proceso terminado.");
             }
 
-
-            _logger.LogInformation("Creando solicitud de verificacion.");
-            var verificacionRequest = VerificacionRequest.CreateInstance(verificacionF.IdSolicitudSat, verificacionF.rfcSolicitante,  accessToken);
-
+ 
+        }
 
 
-            _logger.LogInformation("Enviando solicitud de verificacion.");
-            VerificacionResult verificacionResult = await _verificacionService.SendSoapRequestAsync(verificacionRequest,
-                certificadoSat,
-                cancellationToken);
-
-            if (verificacionResult.DownloadRequestStatusNumber != EstadoSolicitud.Terminada.Value.ToString())
-            {
-                _logger.LogError(
-                    "La solicitud de verificacion no fue exitosa. DownloadRequestStatusNumber:{0} RequestStatusCode:{1} RequestStatusMessage:{2}",
-                    verificacionResult.DownloadRequestStatusNumber,
-                    verificacionResult.RequestStatusCode,
-                    verificacionResult.RequestStatusMessage);
-
-                throw new Exception();
-            }
-
-
-            Solicitud SolicitudEntity = _context.Solicitud.Find(verificacionF.IdSolicitudSat);
-
-            if (SolicitudEntity != null)
-            {
-                SolicitudEntity.EstadoSolicitud = EstadoSolicitud.FromValue(Int32.Parse(verificacionResult.DownloadRequestStatusNumber)).Name;
-                _context.SaveChanges();
-            }
-
-            if (verificacionResult.DownloadRequestStatusNumber != EstadoSolicitud.Aceptada.Value.ToString())
-            {
-                _logger.LogError(
-                    "El estado de la solicitud no esta Aceptada. Verificar mas tarde");
-                _logger.LogError("Estado de la solicitud {}",SolicitudEntity.EstadoSolicitud);
-                throw new Exception();
-            }else{
-                _logger.LogInformation(
-                    "El estado de la solicitud es Aceptada.");
-
-            }
-
-
-            _logger.LogInformation("La solicitud de verificacion fue exitosa.");
-
-
-            foreach (string idsPaquete in verificacionResult.PackageIds)
-            {
-                Verificacion Entityverificacion = new Verificacion();
-                Entityverificacion.IdSolicitudSat = verificacionF.IdSolicitudSat;
-                Entityverificacion.rfcSolicitante = verificacionF.rfcSolicitante;
-                Entityverificacion.Idpaquetes = idsPaquete;
-                Entityverificacion.Estadosolicitud = Int32.Parse(verificacionResult.DownloadRequestStatusNumber);
-                Entityverificacion.Codigoestadosolicitud = verificacionResult.DownloadRequestStatusCode;
-                Entityverificacion.Numerocfdi = Int32.Parse(verificacionResult.NumberOfCfdis);
-                Entityverificacion.Mensaje = verificacionResult.RequestStatusMessage;
-                Entityverificacion.Codestatus = verificacionResult.RequestStatusCode;
-
-                //Agregar path y nombre del zip
-
-                _context.Verificacion.Add(Entityverificacion);
-                _context.SaveChanges();
-
-                _logger.LogInformation("PackageId:{0}", idsPaquete);
-            }
-
-            
-        } 
+          
+ 
     }
 
    

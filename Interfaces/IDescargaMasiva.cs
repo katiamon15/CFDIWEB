@@ -13,7 +13,8 @@ namespace CFDIWEB.Interfaces
 
         public Task SolicitudCFDI(SolicitudForm solicitudF,Session session);
 
-        public Task VerificacionCFDI(Verificacion verificacionF,Session session);
+        public Task VerificacionCFDI(string idsat,Session session);
+
 
 
     }
