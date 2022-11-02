@@ -2,6 +2,7 @@
 {
     public class Cfdi
     {
+        public String? Version { get; set; }
         public String? Importe { get; set; }
         public String? RFCEmisor { get; set; }
         public String? RFCReceptor { get; set; }
