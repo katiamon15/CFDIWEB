@@ -12,6 +12,11 @@ namespace CFDIWEB.Data
 
         public DbSet<Verificacion> Verificacion { get; set; }
 
+        public DbSet<Impuestos> Impuestos { get; set; }
+        public DbSet<Productos> Productos { get; set; }
+
+        public DbSet<Provedores> Provedores { get; set; }
+
         public MyAppDbContext(DbContextOptions<MyAppDbContext> options) : base(options)
         {
 

@@ -70,7 +70,7 @@ namespace CFDIWEB.Pages
                 Console.Write(e.Message);
             }
 
-            return new JsonResult(obtieneDatos(VerificacionList));
+           return new JsonResult(obtieneDatos(VerificacionList));
         }
 
         private List<SolicitudTable> obtieneDatos(List<Solicitud> VerificacionList) {

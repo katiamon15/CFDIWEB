@@ -29,6 +29,8 @@ public class IndexModel : PageModel
      
     }
 
+  
+
     public async Task OnPostGuardallave(){
         Console.Write("Este es tu request");
         Console.Write(SubirArchivo.Contrasena);
