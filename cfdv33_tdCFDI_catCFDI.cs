@@ -22,19 +22,19 @@ using System.Xml.Serialization;
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.sat.gob.mx/cfd/3", IsNullable=false)]
-public partial class Comprobante33 {
+public partial class Comprobante {
     
     private ComprobanteCfdiRelacionados cfdiRelacionadosField;
     
-    private ComprobanteEmisor33 emisorField;
+    private ComprobanteEmisor emisorField;
     
     private ComprobanteReceptor receptorField;
     
-    private ComprobanteConcepto33[] conceptosField;
+    private ComprobanteConcepto[] conceptosField;
     
     private ComprobanteImpuestos impuestosField;
     
-    private ComprobanteComplemento33[] complementoField;
+    private ComprobanteComplemento[] complementoField;
     
     private ComprobanteAddenda addendaField;
     
@@ -99,7 +99,7 @@ public partial class Comprobante33 {
     }
     
     /// <remarks/>
-    public ComprobanteEmisor33 Emisor {
+    public ComprobanteEmisor Emisor {
         get {
             return this.emisorField;
         }
@@ -120,7 +120,7 @@ public partial class Comprobante33 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlArrayItemAttribute("Concepto", IsNullable=false)]
-    public ComprobanteConcepto33[] Conceptos {
+    public ComprobanteConcepto[] Conceptos {
         get {
             return this.conceptosField;
         }
@@ -141,7 +141,7 @@ public partial class Comprobante33 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Complemento")]
-    public ComprobanteComplemento33[] Complemento {
+    public ComprobanteComplemento[] Complemento {
         get {
             return this.complementoField;
         }
@@ -381,7 +381,7 @@ public partial class Comprobante33 {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
     public string LugarExpedicion {
         get {
             return this.lugarExpedicionField;
@@ -509,7 +509,7 @@ public enum c_TipoRelacion {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteEmisor33 {
+public partial class ComprobanteEmisor {
     
     private string rfcField;
     
@@ -1582,15 +1582,15 @@ public enum c_UsoCFDI {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteConcepto33 {
+public partial class ComprobanteConcepto {
     
-    private ComprobanteConceptoImpuestos33 impuestosField;
+    private ComprobanteConceptoImpuestos impuestosField;
     
     private ComprobanteConceptoInformacionAduanera[] informacionAduaneraField;
     
     private ComprobanteConceptoCuentaPredial cuentaPredialField;
     
-    private ComprobanteConceptoComplementoConcepto33 complementoConceptoField;
+    private ComprobanteConceptoComplementoConcepto complementoConceptoField;
     
     private ComprobanteConceptoParte[] parteField;
     
@@ -1615,7 +1615,7 @@ public partial class ComprobanteConcepto33 {
     private bool descuentoFieldSpecified;
     
     /// <remarks/>
-    public ComprobanteConceptoImpuestos33 Impuestos {
+    public ComprobanteConceptoImpuestos Impuestos {
         get {
             return this.impuestosField;
         }
@@ -1646,7 +1646,7 @@ public partial class ComprobanteConcepto33 {
     }
     
     /// <remarks/>
-    public ComprobanteConceptoComplementoConcepto33 ComplementoConcepto {
+    public ComprobanteConceptoComplementoConcepto ComplementoConcepto {
         get {
             return this.complementoConceptoField;
         }
@@ -1783,15 +1783,15 @@ public partial class ComprobanteConcepto33 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteConceptoImpuestos33 {
+public partial class ComprobanteConceptoImpuestos {
     
-    private ComprobanteConceptoImpuestosTraslado33[] trasladosField;
+    private ComprobanteConceptoImpuestosTraslado[] trasladosField;
     
     private ComprobanteConceptoImpuestosRetencion[] retencionesField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlArrayItemAttribute("Traslado", IsNullable=false)]
-    public ComprobanteConceptoImpuestosTraslado33[] Traslados {
+    public ComprobanteConceptoImpuestosTraslado[] Traslados {
         get {
             return this.trasladosField;
         }
@@ -1818,7 +1818,7 @@ public partial class ComprobanteConceptoImpuestos33 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteConceptoImpuestosTraslado33 {
+public partial class ComprobanteConceptoImpuestosTraslado {
     
     private decimal baseField;
     
@@ -1953,7 +1953,7 @@ public enum c_TipoFactor {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteConceptoImpuestosRetencion33 {
+public partial class ComprobanteConceptoImpuestosRetencion {
     
     private decimal baseField;
     
@@ -2071,7 +2071,7 @@ public partial class ComprobanteConceptoCuentaPredial {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteConceptoComplementoConcepto33 {
+public partial class ComprobanteConceptoComplementoConcepto {
     
     private System.Xml.XmlElement[] anyField;
     
@@ -2248,6 +2248,13 @@ public partial class ComprobanteConceptoParteInformacionAduanera {
     }
 }
 
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
+public enum c_ClaveProdServ {
+
+}
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
@@ -9839,7 +9846,7 @@ public partial class ComprobanteImpuestosTraslado {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
-public partial class ComprobanteComplemento33{
+public partial class ComprobanteComplemento {
     
     private System.Xml.XmlElement[] anyField;
     
@@ -10546,4 +10553,12 @@ public enum c_MetodoPago {
     
     /// <remarks/>
     PPD,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
+public enum c_CodigoPostal {
+	
 }

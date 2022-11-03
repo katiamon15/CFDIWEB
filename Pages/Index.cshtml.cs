@@ -45,8 +45,8 @@ public class IndexModel : PageModel
         Session.PfxPassword = SubirArchivo.Contrasena;
          
          await _descargaservice.DescargaCFDI(Session);
-        
-   
+
+        Response.Redirect("/solicitud");
     }
 
 }

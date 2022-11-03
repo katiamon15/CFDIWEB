@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO.Compression;
 
 namespace CFDIWEB.Services
 {
@@ -220,6 +221,21 @@ namespace CFDIWEB.Services
             {
                 _logger.LogInformation("La lista no esta vacia");
 
+                List<string> paquetes = new List<string>();
+
+                paquetes.Add(idSat);
+                var rutaTarget = @"C:\Users\nousfera\Documents\Descarga CFDI\unzip";
+                foreach (string paquete in paquetes)
+                {
+                    var rutaZip = @$"C:\Users\nousfera\Documents\Descarga CFDI\{paquete}.zip";
+
+
+
+                    ZipFile.ExtractToDirectory(rutaZip, rutaTarget);
+                }
+
+                _logger.LogInformation("Proceso terminado.");
+
             }
             else {
                 Solicitud SolicitudEntity = _context.Solicitud.Where(u => u.IdSolicitudSat == idSat)
@@ -281,8 +297,6 @@ namespace CFDIWEB.Services
                     throw new Exception();
                 }
 
-
-
                 if (SolicitudEntity != null)
                 {
                     SolicitudEntity.EstadoSolicitud = EstadoSolicitud.FromValue(Int32.Parse(verificacionResult.DownloadRequestStatusNumber)).Name;
@@ -326,28 +340,41 @@ namespace CFDIWEB.Services
                 }
                 //Descarga
 
-                var rutaDescarga = @"C:\DescargaMasiva\Cfdi";
+                var rutaDescarga = @"C:\Users\nousfera\Documents\Descarga CFDI";
                 _logger.LogInformation("Buscando el servicio de verificacion en el contenedor de servicios (Dependency Injection).");
+                List<string> paquetes = new List<string>();
+                 foreach (string? idsPaquete in verificacionResult.PackageIds)
+                 {
+                     _logger.LogInformation("Creando solicitud de descarga.");
+                     var descargaRequest = DescargaRequest.CreateInstace(idsPaquete, SolicitudEntity.rfcSolicitante, accessToken);
 
-                foreach (string? idsPaquete in verificacionResult.PackageIds)
-                {
-                    _logger.LogInformation("Creando solicitud de descarga.");
-                    var descargaRequest = DescargaRequest.CreateInstace(idsPaquete, SolicitudEntity.rfcSolicitante, accessToken);
+                     _logger.LogInformation("Enviando solicitud de descarga.");
+                     DescargaResult? descargaResult = await _descargaService.SendSoapRequestAsync(descargaRequest,
+                         certificadoSat,
+                         cancellationToken);
 
-                    _logger.LogInformation("Enviando solicitud de descarga.");
-                    DescargaResult? descargaResult = await _descargaService.SendSoapRequestAsync(descargaRequest,
-                        certificadoSat,
-                        cancellationToken);
+                     string fileName = Path.Combine(rutaDescarga, $"{idsPaquete}.zip");
+                     byte[] paqueteContenido = Convert.FromBase64String(descargaResult.Package);
 
-                    string fileName = Path.Combine(rutaDescarga, $"{idsPaquete}.zip");
-                    byte[] paqueteContenido = Convert.FromBase64String(descargaResult.Package);
+                     _logger.LogInformation("Guardando paquete descargado en un archivo .zip en la ruta de descarga.");
+                     using FileStream fileStream = File.Create(fileName, paqueteContenido.Length);
+                     await fileStream.WriteAsync(paqueteContenido, 0, paqueteContenido.Length, cancellationToken);
+                      
+                    
 
-                    _logger.LogInformation("Guardando paquete descargado en un archivo .zip en la ruta de descarga.");
-                    using FileStream fileStream = File.Create(fileName, paqueteContenido.Length);
-                    await fileStream.WriteAsync(paqueteContenido, 0, paqueteContenido.Length, cancellationToken);
-                }
 
-                _logger.LogInformation("Proceso terminado.");
+                     paquetes.Add(idsPaquete);
+
+
+                 }   
+               var rutaTarget = @"C:\Users\nousfera\Documents\Descarga CFDI\unzip";
+               foreach (string paquete in paquetes)
+               {
+                   var rutaZip = @$"C:\Users\nousfera\Documents\Descarga CFDI\{paquete}.zip";
+                   ZipFile.ExtractToDirectory(rutaZip, rutaTarget);
+               }
+     
+               _logger.LogInformation("Proceso terminado.");
             }
 
  
