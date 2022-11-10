@@ -18,6 +18,7 @@ public class IndexModel : PageModel
 
     public SubirArchivoModel SubirArchivo { get; set; }
 
+
     public IndexModel(ILogger<IndexModel> logger, IDescargaMasiva  descargaservice)
     {
         _logger = logger;

@@ -359,8 +359,12 @@ namespace CFDIWEB.Services
                      _logger.LogInformation("Guardando paquete descargado en un archivo .zip en la ruta de descarga.");
                      using FileStream fileStream = File.Create(fileName, paqueteContenido.Length);
                      await fileStream.WriteAsync(paqueteContenido, 0, paqueteContenido.Length, cancellationToken);
-                      
-                    
+                     
+                    /*Respaldo respaldo =new Respaldo();
+                    respaldo.IdSolicitudSat = idsPaquete;
+                    respaldo.rutadescarga = @"C:\Users\nousfera\Documents\respaldocfdi";
+                    _context.Respaldos.Add(respaldo);
+                    _context.SaveChanges();*/
 
 
                      paquetes.Add(idsPaquete);
@@ -384,9 +388,5 @@ namespace CFDIWEB.Services
           
  
     }
-
-   
-    
-   
 
 }

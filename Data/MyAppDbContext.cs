@@ -17,6 +17,10 @@ namespace CFDIWEB.Data
 
         public DbSet<Provedores> Provedores { get; set; }
 
+        public DbSet<Respaldo> Respaldos { get; set; }
+
+        public DbSet<Usuarios> Usuarios { get; set; }
+
         public MyAppDbContext(DbContextOptions<MyAppDbContext> options) : base(options)
         {
 

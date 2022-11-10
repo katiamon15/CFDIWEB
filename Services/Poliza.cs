@@ -101,6 +101,17 @@ namespace CFDIWEB.Services
                         xlWorkSheet.Cells[contGlobal, 8] = Cfdi.Foliofactura;
                         xlWorkSheet.Cells[contGlobal, 9] = Cfdi.TimbreFislcal.uuid;
 
+                        contGlobal++;
+                        xlWorkSheet.Cells[contGlobal, 1] = Cfdi.Cuenta;
+                        xlWorkSheet.Cells[contGlobal, 2] = "yhuejtyfhty";
+                        xlWorkSheet.Cells[contGlobal, 3] = "Proveedores";
+                        xlWorkSheet.Cells[contGlobal, 4] = "";
+                        xlWorkSheet.Cells[contGlobal, 5] = "";
+                        xlWorkSheet.Cells[contGlobal, 6] = "";
+                        xlWorkSheet.Cells[contGlobal, 7] = Cfdi.Importe;
+                        xlWorkSheet.Cells[contGlobal, 8] = Cfdi.Foliofactura;
+                        xlWorkSheet.Cells[contGlobal, 9] = Cfdi.TimbreFislcal.uuid;
+
                         foreach (ImpuestoConcepto Impuesto in Concepto.Impuestos)
                         {
                             contGlobal++;
@@ -114,19 +125,22 @@ namespace CFDIWEB.Services
                             xlWorkSheet.Cells[contGlobal, 8] = Cfdi.Foliofactura;
                             xlWorkSheet.Cells[contGlobal, 9] = Cfdi.TimbreFislcal.uuid;
 
+                            contGlobal++;
+                            xlWorkSheet.Cells[contGlobal, 1] = Cfdi.Cuenta;
+                            xlWorkSheet.Cells[contGlobal, 2] = "yhuejtyfhty";
+                            xlWorkSheet.Cells[contGlobal, 3] = "Proveedores";
+                            xlWorkSheet.Cells[contGlobal, 4] = "";
+                            xlWorkSheet.Cells[contGlobal, 5] = "";
+                            xlWorkSheet.Cells[contGlobal, 6] = "";
+                            xlWorkSheet.Cells[contGlobal, 7] = Cfdi.Importe;
+                            xlWorkSheet.Cells[contGlobal, 8] = Cfdi.Foliofactura;
+                            xlWorkSheet.Cells[contGlobal, 9] = Cfdi.TimbreFislcal.uuid;
+
                         }
 
+                       
+
                     }
-                    contGlobal++;
-                    xlWorkSheet.Cells[contGlobal, 1] = Cfdi.Cuenta;
-                    xlWorkSheet.Cells[contGlobal, 2] = "yhuejtyfhty";
-                    xlWorkSheet.Cells[contGlobal, 3] = "Proveedores";
-                    xlWorkSheet.Cells[contGlobal, 4] = "";
-                    xlWorkSheet.Cells[contGlobal, 5] = "";
-                    xlWorkSheet.Cells[contGlobal, 6] = "";
-                    xlWorkSheet.Cells[contGlobal, 7] = Cfdi.Importe;
-                    xlWorkSheet.Cells[contGlobal, 8] = Cfdi.Foliofactura;
-                    xlWorkSheet.Cells[contGlobal, 9] = Cfdi.TimbreFislcal.uuid;
 
 
                 }
@@ -135,7 +149,7 @@ namespace CFDIWEB.Services
             }
 
 
-            xlWorkBook.SaveAs("C:\\Users\\nousfera\\Documents\\excel-output\\poliza9-Excel.xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            xlWorkBook.SaveAs("C:\\Users\\nousfera\\Documents\\excel-output\\poliza10-Excel.xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             xlWorkBook.Close(true, misValue, misValue);
             xlApp.Quit();
 
