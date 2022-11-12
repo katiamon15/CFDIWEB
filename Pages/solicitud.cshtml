@@ -9,22 +9,29 @@
 </div>
 
 <div class="container">
-    <form asp-page-handler="Solicitudformulario" method="post" name="">
+    <form asp-page-handler="Solicitudformulario" method="post" class="row g-3 needs-validation" novalidate>
         <div class="row">
             <div class="col col-sm-5">
                 <label asp-for="SolicitudForm.UUID" class="form-label">Folio Fiscal:*</label>
-                <input asp-for="SolicitudForm.UUID"  class="form-control">
+                <input asp-for="SolicitudForm.UUID" class="form-control">
             </div>
         </div>
   
         <div class="row">
             <div class="col col-sm-3">
                 <label asp-for="SolicitudForm.FechaInicial"  class="form-label">*Selecciona la fecha Inicial deseada:</label>
-                <input asp-for="SolicitudForm.FechaInicial" type="date"  class="form-control" />
+                <input asp-for="SolicitudForm.FechaInicial" type="date" class="form-control" required />
+                <div class="invalid-feedback">
+                    Introduce la Fecha de Inico
+                </div>
             </div>  
             <div class="col col-sm-3">
                 <label asp-for="SolicitudForm.FechaFin"  class="form-label">*Selecciona la fecha Final deseada:</label>
-                <input asp-for="SolicitudForm.FechaFin" type="date" class="form-control" />
+                <input asp-for="SolicitudForm.FechaFin" type="date" class="form-control" required />
+                <div class="invalid-feedback">
+                    Introduce la Fecha Final
+                </div>
+
             </div>
         </div>
     
@@ -35,11 +42,17 @@
             </div>
             <div class="col col-sm-4">
                 <label asp-for="SolicitudForm.rfcReceptores"  class="form-label">*Rfc Receptor:</label>
-                <input asp-for="SolicitudForm.rfcReceptores"  class="form-control" />
+                <input asp-for="SolicitudForm.rfcReceptores" class="form-control" required />
+                <div class="invalid-feedback">
+                   Introduce el RFC 
+                </div>
             </div>
             <div class="col col-sm-4">
                 <label asp-for="SolicitudForm.rfcSolicitante"  class="form-label">*Rfc Solicitante:</label>
-                <input asp-for="SolicitudForm.rfcSolicitante"  class="form-control" /> 
+                <input asp-for="SolicitudForm.rfcSolicitante" class="form-control" required />
+                <div class="invalid-feedback">
+                    Introduce el RFC
+                </div>
             </div>
 
         </div>
@@ -94,10 +107,33 @@
             </div>
         </div>
 
-            <input type="submit" class="btn btn-primary"> </input>
+            <input type="submit" class="btn btn-primary col col-sm-4"> </input>
     </form>
 </div>
 
  
+@section scripts{
 
+<script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+</script>
+
+}
 

@@ -19,40 +19,37 @@ namespace CFDIWEB.Pages
 {
     public class usuariosModel : PageModel
     {
-        [BindProperty]
-        public String Usuario { get; set; }
-
-        [BindProperty]
-        public String Contrasena { get; set; }
-
 
         public void OnGet()
         {
-
+             
         }
         private MyAppDbContext _dbContext;
+        private IUsuarios _usuarios;
 
-   
-        public usuariosModel(MyAppDbContext dbContext)
+        public usuariosModel(MyAppDbContext dbContext, IUsuarios usuarioscs)
         {
             _dbContext = dbContext;
+            _usuarios = usuarioscs;
           
         }
 
 
-        public async Task OnPostLogin()
+        public async Task<IActionResult> OnPostLogin([FromBody]UsuariosFrom UsuariosFrom)
         {
-            Console.Write("Aqui estoy");
-            Console.Write(Usuario);
-            Console.WriteLine(Contrasena);
+            string responseMessage = "";
 
-            
+            if (!_usuarios.Usuario(UsuariosFrom))
+            {
+                responseMessage = "Oye no te encontre";
+            }
 
+            var bodyResponse = new
+            {
+                responseMessage = responseMessage
+            };
+            return new JsonResult(bodyResponse);
         }
-
-
-
-
 
     }
 }  

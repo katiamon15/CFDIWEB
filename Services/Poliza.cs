@@ -13,7 +13,9 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using CFDIWEB.Models.ComprobanteLectura;
 using Microsoft.EntityFrameworkCore;
-
+using System.Xml;
+using CFDIWEB.CFDI4;
+ 
 
 namespace CFDIWEB.Services
 {
@@ -24,9 +26,6 @@ namespace CFDIWEB.Services
 
         private MyAppDbContext _dbContext;
 
-        
-        
-
         //Listas de tablas
         
         public  Poliza(MyAppDbContext dbContext)
@@ -34,9 +33,11 @@ namespace CFDIWEB.Services
             _dbContext = dbContext;
         }
 
+
         //creacion de archivo excel
         public void CreacionExcel()
         {
+
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
 
             if (xlApp == null)
@@ -68,8 +69,10 @@ namespace CFDIWEB.Services
              xlWorkSheet.Cells[contGlobal, 9] = Cfdi.TimbreFislcal.uuid;
            }*/
 
+            
 
-            List<Cfdi> ListaCFDIS = leerCFDI30();
+
+            List<Cfdi> ListaCFDIS = leerCFDI();
             int contGlobal = 1;
             foreach (Cfdi Cfdi in ListaCFDIS)
             {
@@ -160,7 +163,7 @@ namespace CFDIWEB.Services
 
         }
 
-        private List<Cfdi> leerCFDI30()
+        private List<Cfdi> leerCFDI()
         {
             DirectoryInfo di = new DirectoryInfo(@"C:\Users\nousfera\Documents\Descarga CFDI\unzip");
             Console.WriteLine("No search pattern returns:");
@@ -170,136 +173,292 @@ namespace CFDIWEB.Services
             {
                 string pathxml = @$"{FileName}";
 
-                //version 3.3
-                // 1 paso leer el xml pasar timbrado a una clase 
-                Comprobante ocomprobante = new Comprobante();
-                XmlSerializer oSerializer = new XmlSerializer(typeof(Comprobante));
 
-                Cfdi Cfdi = new Cfdi();
-                using (StreamReader reader = new StreamReader(pathxml))
+                XmlDocument doc = new XmlDocument();
+                doc.Load(pathxml);
+
+                XmlNodeList elemList = doc.GetElementsByTagName("cfdi:Comprobante");
+                XmlAttributeCollection atributos = elemList[0].Attributes;
+                string version = "";
+                for (int j = 0; j < atributos.Count; j++)
                 {
-                    //aqui desearilizamos 
-
-                    try
+                    if (atributos[j].Name == "Version")
                     {
-                        ocomprobante = (Comprobante)oSerializer.Deserialize(reader);
+                        version = atributos[j].Value;
+                    }
 
+                }
 
-                        //Obtengo datos del complemento
-                        foreach (var oComplemento in ocomprobante.Complemento)
+                Console.WriteLine(version);
+
+                if (version == "3.3"){
+
+                    //version 3.3
+                    // 1 paso leer el xml pasar timbrado a una clase 
+                    Comprobante ocomprobante = new Comprobante();
+                    XmlSerializer oSerializer = new XmlSerializer(typeof(Comprobante));
+
+                    Cfdi Cfdi = new Cfdi();
+                    using (StreamReader reader = new StreamReader(pathxml))
+                    {
+                        //aqui desearilizamos 
+
+                        try
                         {
-                            foreach (var ocomplementointerior in oComplemento.Any)
+                            ocomprobante = (Comprobante)oSerializer.Deserialize(reader);
+
+
+                            //Obtengo datos del complemento
+                            foreach (var oComplemento in ocomprobante.Complemento)
                             {
-                                if (ocomplementointerior.Name.Contains("TimbreFiscalDigital"))
-
+                                foreach (var ocomplementointerior in oComplemento.Any)
                                 {
-                                    XmlSerializer oSerializerComplemento = new XmlSerializer(typeof(TimbreFiscalDigital));
+                                    if (ocomplementointerior.Name.Contains("TimbreFiscalDigital"))
 
-                                    using (var readerComplemento = new StringReader(ocomplementointerior.OuterXml))
                                     {
-                                        ocomprobante.TimbreFiscalDigital =
-                                            (TimbreFiscalDigital)oSerializerComplemento.Deserialize(readerComplemento);
+                                        XmlSerializer oSerializerComplemento = new XmlSerializer(typeof(TimbreFiscalDigital));
 
-                                        if (ocomprobante != null)
+                                        using (var readerComplemento = new StringReader(ocomplementointerior.OuterXml))
                                         {
+                                            ocomprobante.TimbreFiscalDigital =
+                                                (TimbreFiscalDigital)oSerializerComplemento.Deserialize(readerComplemento);
 
-                                            Cfdi.TimbreFislcal = new TimbreFiscal();
-                                            Cfdi.TimbreFislcal.uuid = ocomprobante.TimbreFiscalDigital.UUID;
+                                            if (ocomprobante != null)
+                                            {
+
+                                                Cfdi.TimbreFislcal = new TimbreFiscal();
+                                                Cfdi.TimbreFislcal.uuid = ocomprobante.TimbreFiscalDigital.UUID;
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+                            //Obtengo datos del generales del CFDI
+                            Cfdi.Cuenta = "102022";
+                            Cfdi.RFCEmisor = ocomprobante.Emisor.Rfc;
+                            Cfdi.NombreProveedor = _dbContext
+                                     .Provedores
+                                     .Where(u => u.rfc == Cfdi.RFCEmisor)
+                                     .Select(u => u.nombre)
+                                     .SingleOrDefault();
+
+                            Cfdi.Foliofactura = ocomprobante.Folio;
+                            Cfdi.Importe = ocomprobante.Total.ToString();
+
+
+
+                            //Obtengo datos de los conceptos
+                            if (ocomprobante != null)
+                            {
+                                List<Concepto>? Conceptos = new List<Concepto>();
+                                List<ImpuestoConcepto> Impuestos = new List<ImpuestoConcepto>();
+                                Concepto Concepto = new Concepto();
+                                ImpuestoConcepto ImpuestoConcepto = new ImpuestoConcepto();
+
+                                for (int cont = 0; cont <= ocomprobante.Conceptos.Length - 1; cont++)
+                                {
+                                    Concepto = new Concepto();
+                                    Concepto.ClaveOServicio = ocomprobante.Conceptos[cont].ClaveProdServ.ToString();    //fallo aqui 
+                                    Concepto.Descripcion = ocomprobante.Conceptos[cont].Descripcion;
+                                    Concepto.DescripcionCatalogo = _dbContext
+                                                                   .Productos
+                                                                   .Where(u => u.claveprodserv.ToString() == Concepto.ClaveOServicio)
+                                                                   .Select(u => u.descripcion)
+                                                                   .SingleOrDefault();
+                                    Concepto.Importe = ocomprobante.Conceptos[cont].Importe.ToString();
+                                    Impuestos = new List<ImpuestoConcepto>();
+
+                                    if (ocomprobante.Conceptos[cont].Impuestos.Traslados != null)
+                                    {
+                                        for (int conta = 0; conta <= ocomprobante.Conceptos[cont].Impuestos.Traslados.Length - 1; conta++)
+                                        {
+                                            //String[] oimpuestos = new string[5];
+                                            //oimpuestos = ocomprobante.Impuestos.Traslados[conta].TasaOCuota;
+                                            ImpuestoConcepto = new ImpuestoConcepto();
+                                            ImpuestoConcepto.ImporteImpuesto = ocomprobante.Conceptos[cont].Impuestos.Traslados[conta].Importe.ToString();
+                                            ImpuestoConcepto.DescImpuesto = _dbContext.Impuestos
+                                                                            .Where(u => u.tipoimpuesto == ocomprobante.Conceptos[cont].Impuestos.Traslados[conta].Impuesto.ToString())
+                                                                            .Select(u => u.descripcion)
+                                                                            .SingleOrDefault();
+                                            Impuestos.Add(ImpuestoConcepto);
                                         }
 
                                     }
+
+
+                                    if (ocomprobante.Conceptos[cont].Impuestos.Retenciones != null)
+                                    {
+                                        for (int conta = 0; conta <= ocomprobante.Conceptos[cont].Impuestos.Retenciones.Length - 1; conta++)
+                                        {
+                                            //String[] oimpuestos = new string[5];
+                                            //oimpuestos = ocomprobante.Impuestos.Traslados[conta].TasaOCuota;
+                                            ImpuestoConcepto = new ImpuestoConcepto();
+                                            ImpuestoConcepto.ImporteImpuesto = ocomprobante.Conceptos[cont].Impuestos.Retenciones[conta].TasaOCuota.ToString();
+
+                                            ImpuestoConcepto.DescImpuesto = _dbContext.Impuestos
+                                                                            .Where(u => u.tipoimpuesto == ocomprobante.Conceptos[cont].Impuestos.Retenciones[conta].Impuesto.ToString())
+                                                                            .Select(u => u.descripcion)
+                                                                            .SingleOrDefault();
+                                            Impuestos.Add(ImpuestoConcepto);
+                                        }
+                                    }
+
+
+                                    Concepto.Impuestos = Impuestos;
+                                    Conceptos.Add(Concepto);
                                 }
 
+                                Cfdi.Conceptos = Conceptos;
                             }
+
+                            listaCFDIS.Add(Cfdi);
                         }
-
-
-                        //Obtengo datos del generales del CFDI
-                        Cfdi.Cuenta = "102022";
-                        Cfdi.RFCEmisor = ocomprobante.Emisor.Rfc;
-                        Cfdi.NombreProveedor = _dbContext
-                                 .Provedores
-                                 .Where(u => u.rfc == Cfdi.RFCEmisor)
-                                 .Select(u => u.nombre)
-                                 .SingleOrDefault();
-
-                        Cfdi.Foliofactura = ocomprobante.Folio;
-                        Cfdi.Importe = ocomprobante.Total.ToString();
-
-
-
-                        //Obtengo datos de los conceptos
-                        if (ocomprobante != null)
+                        catch (Exception e)
                         {
-                            List<Concepto>? Conceptos = new List<Concepto>();
-                            List<ImpuestoConcepto> Impuestos = new List<ImpuestoConcepto>();
-                            Concepto Concepto = new Concepto();
-                            ImpuestoConcepto ImpuestoConcepto = new ImpuestoConcepto();
-
-                            for (int cont = 0; cont <= ocomprobante.Conceptos.Length - 1; cont++)
-                            {
-                                Concepto = new Concepto();
-                                Concepto.ClaveOServicio = ocomprobante.Conceptos[cont].ClaveProdServ.ToString();    //fallo aqui 
-                                Concepto.Descripcion = ocomprobante.Conceptos[cont].Descripcion;
-                                Concepto.DescripcionCatalogo = _dbContext
-                                                               .Productos
-                                                               .Where(u => u.claveprodserv.ToString() == Concepto.ClaveOServicio)
-                                                               .Select(u => u.descripcion)
-                                                               .SingleOrDefault();
-                                Concepto.Importe = ocomprobante.Conceptos[cont].Importe.ToString();
-                                Impuestos = new List<ImpuestoConcepto>();
-
-                                if (ocomprobante.Conceptos[cont].Impuestos.Traslados != null)
-                                {
-                                    for (int conta = 0; conta <= ocomprobante.Conceptos[cont].Impuestos.Traslados.Length - 1; conta++)
-                                    {
-                                        //String[] oimpuestos = new string[5];
-                                        //oimpuestos = ocomprobante.Impuestos.Traslados[conta].TasaOCuota;
-                                        ImpuestoConcepto = new ImpuestoConcepto();
-                                        ImpuestoConcepto.ImporteImpuesto = ocomprobante.Conceptos[cont].Impuestos.Traslados[conta].Importe.ToString();
-                                        ImpuestoConcepto.DescImpuesto = _dbContext.Impuestos
-                                                                        .Where(u => u.tipoimpuesto == ocomprobante.Conceptos[cont].Impuestos.Traslados[conta].Impuesto.ToString())
-                                                                        .Select(u => u.descripcion)
-                                                                        .SingleOrDefault();
-                                        Impuestos.Add(ImpuestoConcepto);
-                                    }
-
-                                }
-
-
-                                if (ocomprobante.Conceptos[cont].Impuestos.Retenciones != null)
-                                {
-                                    for (int conta = 0; conta <= ocomprobante.Conceptos[cont].Impuestos.Retenciones.Length - 1; conta++)
-                                    {
-                                        //String[] oimpuestos = new string[5];
-                                        //oimpuestos = ocomprobante.Impuestos.Traslados[conta].TasaOCuota;
-                                        ImpuestoConcepto = new ImpuestoConcepto();
-                                        ImpuestoConcepto.ImporteImpuesto = ocomprobante.Conceptos[cont].Impuestos.Retenciones[conta].TasaOCuota.ToString();
-
-                                        ImpuestoConcepto.DescImpuesto = _dbContext.Impuestos
-                                                                        .Where(u => u.tipoimpuesto == ocomprobante.Conceptos[cont].Impuestos.Retenciones[conta].Impuesto.ToString())
-                                                                        .Select(u => u.descripcion)
-                                                                        .SingleOrDefault();
-                                        Impuestos.Add(ImpuestoConcepto);
-                                    }
-                                }
-
-
-                                Concepto.Impuestos = Impuestos;
-                                Conceptos.Add(Concepto);
-                            }
-
-                            Cfdi.Conceptos = Conceptos;
+                            Console.Write("Existe un error al leer el archivo version 3.0");
                         }
 
-                        listaCFDIS.Add(Cfdi);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.Write("Existe un error al leer el archivo version 3.0");
-                    }
+                    }//us
+                }
 
-                }//us
+
+                else if (version == "4.0"){
+                    //version 4.0
+                    // 1 paso leer el xml pasar timbrado a una clase 
+                   CFDI4.Comprobante ocomprobante = new CFDI4.Comprobante();
+                    XmlSerializer oSerializer = new XmlSerializer(typeof(CFDI4.Comprobante));
+
+                    Cfdi Cfdi = new Cfdi();
+                    using (StreamReader reader = new StreamReader(pathxml))
+                    {
+                        //aqui desearilizamos 
+
+                        try
+                        {
+                            ocomprobante = (CFDI4.Comprobante)oSerializer.Deserialize(reader);
+
+
+                            //Obtengo datos del complemento
+                            var oComplemento = ocomprobante.Complemento;
+
+                            foreach (var ocomplementointerior in oComplemento.Any)
+                                {
+                                    if (ocomplementointerior.Name.Contains("TimbreFiscalDigital"))
+
+                                    {
+                                        XmlSerializer oSerializerComplemento = new XmlSerializer(typeof(TimbreFiscalDigital));
+
+                                        using (var readerComplemento = new StringReader(ocomplementointerior.OuterXml))
+                                        {
+                                            ocomprobante.TimbreFiscalDigital =
+                                                (TimbreFiscalDigital)oSerializerComplemento.Deserialize(readerComplemento);
+
+                                            if (ocomprobante != null)
+                                            {
+
+                                                Cfdi.TimbreFislcal = new TimbreFiscal();
+                                                Cfdi.TimbreFislcal.uuid = ocomprobante.TimbreFiscalDigital.UUID;
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            
+
+
+                            //Obtengo datos del generales del CFDI
+                            Cfdi.Cuenta = "102022";
+                            Cfdi.RFCEmisor = ocomprobante.Emisor.Rfc;
+                            Cfdi.NombreProveedor = _dbContext
+                                     .Provedores
+                                     .Where(u => u.rfc == Cfdi.RFCEmisor)
+                                     .Select(u => u.nombre)
+                                     .SingleOrDefault();
+
+                            Cfdi.Foliofactura = ocomprobante.Folio;
+                            Cfdi.Importe = ocomprobante.Total.ToString();
+
+
+
+                            //Obtengo datos de los conceptos
+                            if (ocomprobante != null)
+                            {
+                                List<Concepto>? Conceptos = new List<Concepto>();
+                                List<ImpuestoConcepto> Impuestos = new List<ImpuestoConcepto>();
+                                Concepto Concepto = new Concepto();
+                                ImpuestoConcepto ImpuestoConcepto = new ImpuestoConcepto();
+
+                                for (int cont = 0; cont <= ocomprobante.Conceptos.Length - 1; cont++)
+                                {
+                                    Concepto = new Concepto();
+                                    Concepto.ClaveOServicio = ocomprobante.Conceptos[cont].ClaveProdServ.ToString();    //fallo aqui 
+                                    Concepto.Descripcion = ocomprobante.Conceptos[cont].Descripcion;
+                                    Concepto.DescripcionCatalogo = _dbContext
+                                                                   .Productos
+                                                                   .Where(u => u.claveprodserv.ToString() == Concepto.ClaveOServicio)
+                                                                   .Select(u => u.descripcion)
+                                                                   .SingleOrDefault();
+                                    Concepto.Importe = ocomprobante.Conceptos[cont].Importe.ToString();
+                                    Impuestos = new List<ImpuestoConcepto>();
+
+                                    if (ocomprobante.Conceptos[cont].Impuestos.Traslados != null)
+                                    {
+                                        for (int conta = 0; conta <= ocomprobante.Conceptos[cont].Impuestos.Traslados.Length - 1; conta++)
+                                        {
+                                            //String[] oimpuestos = new string[5];
+                                            //oimpuestos = ocomprobante.Impuestos.Traslados[conta].TasaOCuota;
+                                            ImpuestoConcepto = new ImpuestoConcepto();
+                                            ImpuestoConcepto.ImporteImpuesto = ocomprobante.Conceptos[cont].Impuestos.Traslados[conta].Importe.ToString();
+                                            ImpuestoConcepto.DescImpuesto = _dbContext.Impuestos
+                                                                            .Where(u => u.tipoimpuesto == ocomprobante.Conceptos[cont].Impuestos.Traslados[conta].Impuesto.ToString())
+                                                                            .Select(u => u.descripcion)
+                                                                            .SingleOrDefault();
+                                            Impuestos.Add(ImpuestoConcepto);
+                                        }
+
+                                    }
+
+
+                                    if (ocomprobante.Conceptos[cont].Impuestos.Retenciones != null)
+                                    {
+                                        for (int conta = 0; conta <= ocomprobante.Conceptos[cont].Impuestos.Retenciones.Length - 1; conta++)
+                                        {
+                                            //String[] oimpuestos = new string[5];
+                                            //oimpuestos = ocomprobante.Impuestos.Traslados[conta].TasaOCuota;
+                                            ImpuestoConcepto = new ImpuestoConcepto();
+                                            ImpuestoConcepto.ImporteImpuesto = ocomprobante.Conceptos[cont].Impuestos.Retenciones[conta].TasaOCuota.ToString();
+
+                                            ImpuestoConcepto.DescImpuesto = _dbContext.Impuestos
+                                                                            .Where(u => u.tipoimpuesto == ocomprobante.Conceptos[cont].Impuestos.Retenciones[conta].Impuesto.ToString())
+                                                                            .Select(u => u.descripcion)
+                                                                            .SingleOrDefault();
+                                            Impuestos.Add(ImpuestoConcepto);
+                                        }
+                                    }
+
+
+                                    Concepto.Impuestos = Impuestos;
+                                    Conceptos.Add(Concepto);
+                                }
+
+                                Cfdi.Conceptos = Conceptos;
+                            }
+
+                            listaCFDIS.Add(Cfdi);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.Write("Existe un error al leer el archivo version 4.0");
+                        }
+
+                    }//us
+
+                }
 
             }
             return listaCFDIS;

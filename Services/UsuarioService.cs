@@ -16,13 +16,15 @@ namespace CFDIWEB.Services
             _dbContext = dbContext;
         }
 
-        public async Task Usuario(UsuariosFrom usuariosFrom)
+        public bool Usuario(UsuariosFrom usuariosFrom)
         {
-            string login = _dbContext
+            Usuarios Usuario = _dbContext
                           .Usuarios
                           .Where(u => u.usuario == usuariosFrom.usuario)
-                          .Select(u => u.contraseña)
+                          .Where(u => u.contraseña == usuariosFrom.contraseña)
                           .SingleOrDefault();
+
+            return Usuario != null;
         }
 
 

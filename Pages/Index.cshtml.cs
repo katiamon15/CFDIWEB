@@ -47,7 +47,7 @@ public class IndexModel : PageModel
          
          await _descargaservice.DescargaCFDI(Session);
 
-        Response.Redirect("/solicitud");
+        
     }
 
 }
