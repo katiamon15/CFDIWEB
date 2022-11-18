@@ -11,14 +11,16 @@ using Microsoft.Build.Framework;
 using CFDIWEB.Interfaces;
 
 namespace CFDIWEB.Pages
+
 {   public class SolicitudModel : PageModel
     {
 
         private MyAppDbContext _dbContext;
         private IDescargaMasiva _descargaservice;
-   
+
         [BindProperty]
         public SolicitudForm SolicitudForm { get; set; }
+
         public SolicitudModel(MyAppDbContext dbContext, IDescargaMasiva descargaservice)
         {
             _dbContext = dbContext;
@@ -31,9 +33,19 @@ namespace CFDIWEB.Pages
         {
      
             cargaCatalogoComplemento();
-      
+
+
         }
 
+        public ActionResult solicitud()
+        {
+            return View();
+        }
+
+        private ActionResult View()
+        {
+            throw new NotImplementedException();
+        }
 
         private void cargaCatalogoComplemento() {
             Complementos = _dbContext.Complemento.Select(a => new SelectListItem
@@ -64,5 +76,32 @@ namespace CFDIWEB.Pages
 
         }
 
+        public ActionResult OnPostsolicitud(SolicitudForm solicitudForm)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Ok");
+            }
+            else
+            {
+                return View(solicitudForm);
+            }
+    
+        }
+        public ActionResult Ok()
+        {
+            // Aquí código validación correcta...
+            return View();
+        }
+
+
+        private ActionResult View(SolicitudForm solicitudForm)
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
+   
+    
 }

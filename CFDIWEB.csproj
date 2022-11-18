@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
+	<StartupObject></StartupObject>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
+		<PackageReference Include="IKVM" Version="8.2.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
 		  <PrivateAssets>all</PrivateAssets>

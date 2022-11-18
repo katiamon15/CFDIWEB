@@ -41,7 +41,7 @@ namespace CFDIWEB.Pages
 
             if (!_usuarios.Usuario(UsuariosFrom))
             {
-                responseMessage = "Oye no te encontre";
+                responseMessage = "Usuario Invalido,Verifica tus datos ";
             }
 
             var bodyResponse = new

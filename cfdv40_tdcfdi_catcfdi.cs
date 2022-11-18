@@ -88,8 +88,8 @@ public partial class Comprobante{
     private string confirmacionField;
 	
 	public TimbreFiscalDigital TimbreFiscalDigital;
-    
-    public Comprobante() {
+
+        public Comprobante() {
         this.versionField = "4.0";
     }
 

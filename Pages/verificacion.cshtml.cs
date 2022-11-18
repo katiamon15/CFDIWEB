@@ -13,6 +13,7 @@ using CFDIWEB.Enumerations;
 using Microsoft.Data.SqlClient.Server;
 using CFDIWEB.Services;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using NuGet.Protocol.Plugins;
 
 namespace CFDIWEB.Pages
 {
@@ -49,12 +50,20 @@ namespace CFDIWEB.Pages
                 session.Timestamp = context.Session.GetString("dateRefresh");
             }
 
-           await _descargaservice.VerificacionCFDI(idSat, session);
+            string  messageResponse = "";
+            try
+            {
+                await _descargaservice.VerificacionCFDI(idSat, session);
+                messageResponse = "Los paquetes se descargaron de manera exitosa";
+            }
+            catch (Exception e ) {
+                messageResponse = "Error al descagar los paquetes";
+            }
 
             var bodyResponse = new
             {
-                dato = "Proceso terminado correctamente"
-                
+                dato = messageResponse
+
             };
             return new JsonResult(bodyResponse);
         }

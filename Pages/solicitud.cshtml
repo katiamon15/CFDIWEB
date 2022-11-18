@@ -7,7 +7,13 @@
 <div class="text-center">
     <h1 class="autenticacion">SOLICITUD</h1>
 </div>
+<ul>
+    <div>
+    <li>  <a asp-area="" asp-page="/menu">Menu</a>  </li>
+    </div>
 
+</ul>
+ 
 <div class="container">
     <form asp-page-handler="Solicitudformulario" method="post" class="row g-3 needs-validation" novalidate>
         <div class="row">
@@ -16,42 +22,42 @@
                 <input asp-for="SolicitudForm.UUID" class="form-control">
             </div>
         </div>
-  
+
         <div class="row">
             <div class="col col-sm-3">
-                <label asp-for="SolicitudForm.FechaInicial"  class="form-label">*Selecciona la fecha Inicial deseada:</label>
-                <input asp-for="SolicitudForm.FechaInicial" type="date" class="form-control" required />
+                <label asp-for="SolicitudForm.FechaInicial" class="form-label">*Selecciona la fecha Inicial deseada:</label>
+                <input asp-for="SolicitudForm.FechaInicial" type="date" class="form-control"required/>
                 <div class="invalid-feedback">
-                    Introduce la Fecha de Inico
+                    <span asp-validation-for="SolicitudForm.FechaInicial" class="form-control"></span>
                 </div>
-            </div>  
+            </div>
             <div class="col col-sm-3">
-                <label asp-for="SolicitudForm.FechaFin"  class="form-label">*Selecciona la fecha Final deseada:</label>
+                <label asp-for="SolicitudForm.FechaFin" class="form-label">*Selecciona la fecha Final deseada:</label>
                 <input asp-for="SolicitudForm.FechaFin" type="date" class="form-control" required />
                 <div class="invalid-feedback">
-                    Introduce la Fecha Final
+                    <span asp-validation-for="SolicitudForm.FechaFin" class="form-control"></span>
                 </div>
 
             </div>
         </div>
-    
+
         <div class="row">
             <div class="col col-sm-4">
-                <label asp-for="SolicitudForm.rfcEmisor"  class="form-label">*Rfc Emisor:</label>
-                <input asp-for="SolicitudForm.rfcEmisor"  class="form-control" />
+                <label asp-for="SolicitudForm.rfcEmisor" class="form-label">*Rfc Emisor:</label>
+                <input asp-for="SolicitudForm.rfcEmisor" class="form-control" />
             </div>
             <div class="col col-sm-4">
-                <label asp-for="SolicitudForm.rfcReceptores"  class="form-label">*Rfc Receptor:</label>
+                <label asp-for="SolicitudForm.rfcReceptores" class="form-label">*Rfc Receptor:</label>
                 <input asp-for="SolicitudForm.rfcReceptores" class="form-control" required />
                 <div class="invalid-feedback">
-                   Introduce el RFC 
+                    <span asp-validation-for="SolicitudForm.rfcReceptores" class="form-control"></span>
                 </div>
             </div>
             <div class="col col-sm-4">
-                <label asp-for="SolicitudForm.rfcSolicitante"  class="form-label">*Rfc Solicitante:</label>
+                <label asp-for="SolicitudForm.rfcSolicitante" class="form-label">*Rfc Solicitante:</label>
                 <input asp-for="SolicitudForm.rfcSolicitante" class="form-control" required />
                 <div class="invalid-feedback">
-                    Introduce el RFC
+                    <span asp-validation-for="SolicitudForm.rfcSolicitante" class="form-control"></span>
                 </div>
             </div>
 
@@ -61,22 +67,22 @@
             <div class="col col-sm-6">
                 <label asp-for="SolicitudForm.TipoSolicitud" class="form-label">Tipo Solicitud:</label>
                 <div class="form-check">
-                    <input asp-for="SolicitudForm.TipoSolicitud" class="form-check-input" type="radio" value=1 >
+                    <input asp-for="SolicitudForm.TipoSolicitud" class="form-check-input" type="radio" value=1>
                     <label asp-for="SolicitudForm.TipoSolicitud" class="form-check-label"> Metadata </label>
                 </div>
-                 <div class="form-check">
-                    <input asp-for="SolicitudForm.TipoSolicitud" class="form-check-input" type="radio"  value=0 checked>
+                <div class="form-check">
+                    <input asp-for="SolicitudForm.TipoSolicitud" class="form-check-input" type="radio" value=0 checked>
                     <label asp-for="SolicitudForm.TipoSolicitud" class="form-check-label">Cfdi </label>
-                 </div>
-                
+                </div>
+
             </div>
         </div>
-       
-            
+
+
         <div class="row">
             <div class="col col-sm-5">
                 <label asp-for="SolicitudForm.TipoComprobante">Tipo Comprobante:</label>
-                <select asp-for="SolicitudForm.TipoComprobante"  class="form-select">
+                <select asp-for="SolicitudForm.TipoComprobante" class="form-select">
                     <option value="Null">Ninguno</option>
                     <option value="I">Ingreso</option>
                     <option value="E">Egreso</option>
@@ -89,7 +95,7 @@
 
         <div class="row">
             <div class="col col-sm-5">
-                <label asp-for="SolicitudForm.EstadoComprobante" >Estado Complemento:</label>
+                <label asp-for="SolicitudForm.EstadoComprobante">Estado Complemento:</label>
                 <select asp-for="SolicitudForm.EstadoComprobante" class="form-select">
                     <option value="Null">Ninguno</option>
                     <option value=0>Vigente</option>
@@ -97,7 +103,7 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col col-sm-5">
                 <label asp-for="SolicitudForm.Complemento">Complemento:</label>
@@ -107,14 +113,15 @@
             </div>
         </div>
 
-            <input type="submit" class="btn btn-primary col col-sm-4"> </input>
+        <input type="submit" class="btn btn-primary col col-sm-4" onclick="myFunction()"> </input>
     </form>
 </div>
 
- 
-@section scripts{
 
-<script>
+@section scripts{
+    
+
+    <script>
         (() => {
             'use strict'
 
@@ -133,7 +140,12 @@
                 }, false)
             })
         })()
-</script>
+
+        function myFunction() {
+            alert("Solicitud Creada con exito");
+        }
+
+    </script>
+
 
 }
-

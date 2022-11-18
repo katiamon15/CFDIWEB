@@ -5,8 +5,30 @@
 }
 @Html.AntiForgeryToken()
 
-<style scoped>
-   
+<ul>
+    <div>
+    <li>  <a asp-area="" asp-page="/menu">Menu</a>  </li>
+    </div>
+
+</ul>
+<style>
+    .spinner-container {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: #02020254;
+        z-index: 999;
+    }
+
+    .spinner-border {
+        text-align: center;
+        position: absolute;
+        left: calc(50vw - 30px);
+        top: calc(50vh - 20px);
+    }
 </style>
 
 <h1>Verifficacion</h1>
@@ -34,12 +56,14 @@
     </table>
 </div>
 
+<div id="spinner"></div>
 
-<input type="button" value="Descargar" onclick="javascript:PostVerifica('Hola mundo soy don boton')" />
 @section scripts{
     <script type="text/javascript">
         urlPostDatos = "@Url.Page("/validacion")?handler=Datos";
-        function Get() {
+        async function Get() {
+            await Spin();
+            await new Promise(r => setTimeout(r, 2000));
             fetch(urlPostDatos, {
                 method: "post",
                 headers:
@@ -77,14 +101,18 @@
                 });
                     table.className = "table table-hover";
             });
+
+            await StopSpinner();
         }
 
 
 
         urlPostVerifica = "@Url.Page("/validacion")?handler=Verifica"
            
-        function PostVerifica(cadenaButton) {
+        async function PostVerifica(cadenaButton) {
             console.log(cadenaButton)
+            await Spin();
+            await new Promise(r => setTimeout(r, 2000));
             fetch(urlPostVerifica, {
                 method: "post",
                 body: JSON.stringify(cadenaButton),
@@ -100,9 +128,21 @@
 
             })
             .then((data) => {
-                console.log(data)
+                alert(data.dato);
             });
 
+            await StopSpinner();
+        }
+
+        async function Spin() {
+            var component = document.getElementById('spinner');
+            component.innerHTML = '<div class="spinner-container" id="spinner-container"> <div class="spinner-border" role = "status"' +
+                '<span class="visually-hidden"></span></div></div>'
+        }
+
+        async function StopSpinner() {
+            var component = document.getElementById('spinner-container');
+            component.remove()
         }
     </script>
 }

@@ -5,10 +5,13 @@ using CFDIWEB.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using CFDIWEB.Pages;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var cns = "Data Source= .; Initial Catalog = master; Integrated security= True";
+var cns = "Data Source  = .; Initial Catalog = master; Integrated security= True";
 
 builder.Services.AddDbContext<MyAppDbContext>(options => {
     options.UseSqlServer(cns);
@@ -47,9 +50,11 @@ if (!app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
+ 
 
 app.UseAuthorization(); 
 
@@ -57,7 +62,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
 
     name:"default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
+    pattern: "{controller=Home}/{action=usuarios}/{id?}"
 );
 
 app.UseSession();

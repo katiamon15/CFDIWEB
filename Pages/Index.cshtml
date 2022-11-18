@@ -4,13 +4,19 @@
     ViewData["Title"] = "Autenticación";
 }
 
+<ul>
+    <div>
+    <li>  <a asp-area="" asp-page="/menu">Menu</a>  </li>
+    </div>
+
+</ul>
 <div class="text-center">
 <h1 class="autenticacion">AUTENTICACION</h1>
    <form asp-page-handler="guardallave" method="post" enctype="multipart/form-data">
    <label asp-for="SubirArchivo.Archivo">PFX:</label><br>
    <input asp-for="SubirArchivo.Archivo"><br><br>
    <label asp-for="SubirArchivo.Contrasena">Password:</label>
-   <input asp-for="SubirArchivo.Contrasena"><br><br>
+   <input asp-for="SubirArchivo.Contrasena" type="password"><br><br>
    <input type="submit" id="enviar" onclick="" value="Enviar">
   </form>  
 </div> 
