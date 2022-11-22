@@ -2,6 +2,6 @@
 {
     public interface IPdf
     {
-
+        public void Pdfversion(List<byte[]> files);
     }
 }

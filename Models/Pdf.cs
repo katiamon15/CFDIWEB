@@ -1,7 +1,7 @@
 ﻿namespace CFDIWEB.Models
 {
-    public class Pdf
+    public class PdfModels
     {
-        public IFormFile ArchivoPdf { get; set; }
+        public List<IFormFile> ArchivoPdf { get; set; }
     }
 }

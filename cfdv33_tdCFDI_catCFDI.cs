@@ -84,7 +84,31 @@ public partial class Comprobante {
 
    public TimbreFiscalDigital TimbreFiscalDigital;
 
-  
+    public string QR
+    {
+        get
+        {
+            byte[] qr = null;
+            string sQR = "";
+            string baseQR = "";
+
+            qr = CFDIWEB.Pdf.QR.createBarCode("https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=" + TimbreFiscalDigital.UUID +
+                "&re=" + Emisor.Rfc + "&rr=" + Receptor.Rfc + "&tt=" + Total + "&fe=" + Sello.Substring(Sello.Length - 8, 8));
+            baseQR = System.Convert.ToBase64String(qr);
+            sQR = System.String.Format("data:image/gif;base64,{0}", baseQR);
+
+            return sQR;
+        }
+    }
+    public string MonedaConLetra
+    {
+        get
+        {
+            CFDIWEB.Pdf.Moneda oMoneda = new CFDIWEB.Pdf.Moneda();
+            return oMoneda.Convertir(Total.ToString("#.00"), true);
+        }
+    }
+
     public Comprobante() {
         this.versionField = "3.3";
     }

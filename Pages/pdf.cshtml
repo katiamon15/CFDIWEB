@@ -1,8 +1,19 @@
 ﻿@page
-@model CFDIWEB.Pages.pdfModel
+@model pdfModel
 @{
     ViewData["Title"] = "PDF";
 }
 
 
 
+    <div>
+        <h1 class="PDF">Transformaciòn PDF</h1>
+    </div>
+<form asp-page-handler="leer" method="post" enctype="multipart/form-data">
+   
+        <label asp-for="ArchivoPdf.ArchivoPdf" type="formFileMultiple" class="form-label">Cargas Xml:</label>
+        <input asp-for="ArchivoPdf.ArchivoPdf" type="file" multiple>
+        <input type="submit" id="enviar" onclick="" value="Tranformar Pdf">
+
+</form>
+   

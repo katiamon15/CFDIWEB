@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var cns = "Data Source  = .; Initial Catalog = master; Integrated security= True";
+var cns = "Data Source  = .; Initial Catalog = master; Integrated security= True; TrustServerCertificate=True";
 
 builder.Services.AddDbContext<MyAppDbContext>(options => {
     options.UseSqlServer(cns);
@@ -21,6 +21,7 @@ builder.Services.AddSession(options =>{
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
 builder.Services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 builder.Services.AddHttpClient<IHttpSoapClient, HttpSoapClient>();
 builder.Services.AddTransient<IAutenticacionService, AutenticacionService>();
@@ -30,6 +31,7 @@ builder.Services.AddTransient<IVerificacionService, VerificacionService>();
 builder.Services.AddTransient<IDescargaService, DescargaService>();
 builder.Services.AddTransient<IPoliza, Poliza>();
 builder.Services.AddTransient<IUsuarios, UsuarioService>();
+builder.Services.AddTransient<IPdf, PdfService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 
