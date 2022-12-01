@@ -152,7 +152,7 @@ namespace CFDIWEB.Services
             }
 
 
-            xlWorkBook.SaveAs("C:\\Users\\nousfera\\Documents\\excel-output\\poliza-Excel.xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            xlWorkBook.SaveAs("C:\\DesagarCFDIWEB\\Polizas\\Excel.xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             xlWorkBook.Close(true, misValue, misValue);
             xlApp.Quit();
 
@@ -165,10 +165,10 @@ namespace CFDIWEB.Services
 
         private List<Cfdi> leerCFDI()
         {
-            DirectoryInfo di = new DirectoryInfo(@"C:\Users\nousfera\Documents\Descarga CFDI\unzip");
+            DirectoryInfo di = new DirectoryInfo(@"C:\DesagarCFDIWEB\XMLUNZIP");
             Console.WriteLine("No search pattern returns:");
 
-            List<Cfdi> listaCFDIS =  new List<Cfdi>();
+            List<Cfdi> listaCFDIS =  new List<Cfdi>();                                         
             foreach (var FileName in di.GetFiles())
             {
                 string pathxml = @$"{FileName}";

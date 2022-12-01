@@ -1,0 +1,146 @@
+2022-11-23T20:12:10  PID[6932] Verbose     SnapshotHelper::RestoreSnapshotInternal SUCCESS - File.Copy
+2022-11-23T20:12:10  PID[6932] Verbose     SnapshotHelper::RestoreSnapshotInternal SUCCESS - process
+2022-11-23T20:12:13  PID[6932] Information 11/23/2022 8:12:13 PM [[3.2]] [dw0sdwk0000HH] Checking DaaS bits and updating if required
+2022-11-23T20:12:13  PID[6932] Information 11/23/2022 8:12:13 PM [[3.2]] [dw0sdwk0000HH] DAAS Application_Start took 1196.9004 ms
+2022-11-23T20:12:13  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/appinfo?api-version=2016-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/appinfo?api-version=2016-08-01'
+2022-11-23T20:12:13  PID[6932] Information Message='AppInfo', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:12:13  PID[6932] Information Message='DiagnosticsExtension.Controllers.AppInfoController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:12:13  PID[6932] Information Message='DiagnosticsExtension.Controllers.AppInfoController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:12:13  PID[6932] Information 11/23/2022 8:12:13 PM [[3.2]] [dw0sdwk0000HH] Found DaasRunner process running in D:\DWASFiles\Sites\#1CFDIWEB20221122173229\Temp\jobs\continuous\DaaS\2jrtwd03.odk\DaasRunner.exe with version 3.2.22119.1
+2022-11-23T20:12:13  PID[6932] Information 11/23/2022 8:12:13 PM [[3.2]] [dw0sdwk0000HH] [DaasRunner] New version (3.2.22119.1) is the same as existing version 3.2.22119.1
+2022-11-23T20:12:13  PID[6932] Information Message='Selected action 'Get()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:12:13  PID[6932] Information 11/23/2022 8:12:13 PM [[3.2]] [dw0sdwk0000HH] [daasconsole.exe] New version (3.2.22119.1) is the same as existing version 3.2.22119.1
+2022-11-23T20:12:14  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:12:14  PID[6932] Information 11/23/2022 8:12:14 PM [[3.2]] [dw0sdwk0000HH] LoggedEnabled section set to Error in .net core config
+2022-11-23T20:12:14  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:12:14  PID[6932] Information Message='Action returned 'StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.ObjectContent`1[[DaaS.ApplicationInfo.AppModelDetectionResult, DaaS, Version=3.2.22119.1, Culture=neutral, PublicKeyToken=null]], Headers:
+{
+  Content-Type: application/json; charset=utf-8
+}'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:12:14  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:12:14  PID[6932] Information Operation=AppInfoController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:12:14  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/appinfo?api-version=2016-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:12:14  PID[6932] Information 11/23/2022 8:12:14 PM [[3.2]] [dw0sdwk0000HH] Done checking DaaS bits for any new updates
+2022-11-23T20:12:14  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:12:14  PID[6932] Information Operation=AppInfoController.Dispose
+2022-11-23T20:13:49  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01'
+2022-11-23T20:13:49  PID[6932] Information Message='Session', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:13:50  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:13:50  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:13:50  PID[6932] Information Message='Selected action 'GetSessions()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:13:50  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:13:50  PID[6932] Information Message='Action returned 'System.Web.Http.Results.OkNegotiatedContentResult`1[System.Collections.Generic.IEnumerable`1[DaaS.Sessions.Session]]'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:13:50  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:13:50  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:13:50  PID[6932] Information Operation=SessionController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:13:50  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:13:50  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:13:50  PID[6932] Information Operation=SessionController.Dispose
+2022-11-23T20:14:50  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01'
+2022-11-23T20:14:50  PID[6932] Information Message='Session', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:14:50  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:14:50  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:14:50  PID[6932] Information Message='Selected action 'GetSessions()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:14:50  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:14:50  PID[6932] Information Message='Action returned 'System.Web.Http.Results.OkNegotiatedContentResult`1[System.Collections.Generic.IEnumerable`1[DaaS.Sessions.Session]]'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:14:50  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:14:50  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:14:50  PID[6932] Information Operation=SessionController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:14:50  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:14:50  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:14:50  PID[6932] Information Operation=SessionController.Dispose
+2022-11-23T20:15:17  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01'
+2022-11-23T20:15:17  PID[6932] Information Message='Session', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:15:17  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:15:17  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:15:17  PID[6932] Information Message='Selected action 'GetSessions()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:15:17  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:15:18  PID[6932] Information Message='Action returned 'System.Web.Http.Results.OkNegotiatedContentResult`1[System.Collections.Generic.IEnumerable`1[DaaS.Sessions.Session]]'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:15:18  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:15:18  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:15:18  PID[6932] Information Operation=SessionController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:15:18  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:15:18  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:15:18  PID[6932] Information Operation=SessionController.Dispose
+2022-11-23T20:16:09  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01'
+2022-11-23T20:16:09  PID[6932] Information Message='Session', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:16:09  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:16:09  PID[6932] Information Message='DiagnosticsExtension.Controllers.SessionController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:16:09  PID[6932] Information Message='Selected action 'GetSessions()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:16:09  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:16:09  PID[6932] Information Message='Action returned 'System.Web.Http.Results.OkNegotiatedContentResult`1[System.Collections.Generic.IEnumerable`1[DaaS.Sessions.Session]]'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:16:09  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:16:09  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:16:09  PID[6932] Information Operation=SessionController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:16:09  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/sessions?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:16:09  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:16:09  PID[6932] Information Operation=SessionController.Dispose
+2022-11-23T20:16:09  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/events?api-version=2016-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/events?api-version=2016-08-01'
+2022-11-23T20:16:09  PID[6932] Information Message='Events', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:16:09  PID[6932] Information Message='DiagnosticsExtension.Controllers.EventsController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:16:09  PID[6932] Information Message='DiagnosticsExtension.Controllers.EventsController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:16:09  PID[6932] Information Message='Selected action 'Get()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:16:09  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:16:09  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:16:09  PID[6932] Information Message='Action returned 'StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.ObjectContent`1[[System.Collections.Generic.List`1[[DiagnosticsExtension.ServerSideEvent, DiagnosticsExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Headers:
+{
+  Content-Type: application/json; charset=utf-8
+}'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:16:09  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:16:09  PID[6932] Information Operation=EventsController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:16:09  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/events?api-version=2016-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:16:09  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:16:09  PID[6932] Information Operation=EventsController.Dispose
+2022-11-23T20:16:39  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/diagnosers?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/diagnosers?api-version=2015-08-01'
+2022-11-23T20:16:39  PID[6932] Information Message='Diagnosers', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:16:39  PID[6932] Information Message='DiagnosticsExtension.Controllers.DiagnosersController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:16:39  PID[6932] Information Message='DiagnosticsExtension.Controllers.DiagnosersController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:16:39  PID[6932] Information Message='Selected action 'Get()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:16:39  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:16:39  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:16:39  PID[6932] Information Message='Action returned 'StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.ObjectContent`1[[System.Collections.Generic.List`1[[DaaS.Configuration.DiagnoserDetails, DaaS, Version=3.2.22119.1, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Headers:
+{
+  Content-Type: application/json; charset=utf-8
+}'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:16:39  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:16:39  PID[6932] Information Operation=DiagnosersController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:16:39  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/diagnosers?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:16:39  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:16:39  PID[6932] Information Operation=DiagnosersController.Dispose
+2022-11-23T20:16:39  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/CpuMonitoring?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/CpuMonitoring?api-version=2015-08-01'
+2022-11-23T20:16:39  PID[6932] Information Message='CpuMonitoring', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:16:39  PID[6932] Information Message='DiagnosticsExtension.Controllers.CpuMonitoringController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:16:39  PID[6932] Information Message='DiagnosticsExtension.Controllers.CpuMonitoringController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:16:39  PID[6932] Information Message='Selected action 'Get()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:16:39  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:16:39  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:16:39  PID[6932] Information Message='Action returned 'StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.ObjectContent`1[[System.Collections.Generic.List`1[[DaaS.MonitoringSessionResponse, DaaS, Version=3.2.22119.1, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Headers:
+{
+  Content-Type: application/json; charset=utf-8
+}'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:16:39  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:16:39  PID[6932] Information Operation=CpuMonitoringController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:16:39  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/CpuMonitoring?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:16:39  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:16:39  PID[6932] Information Operation=CpuMonitoringController.Dispose
+2022-11-23T20:16:39  PID[6932] Information Request, Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/CpuMonitoring/activesessiondetails?api-version=2015-08-01, Message='https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/CpuMonitoring/activesessiondetails?api-version=2015-08-01'
+2022-11-23T20:16:39  PID[6932] Information Message='CpuMonitoring', Operation=DefaultHttpControllerSelector.SelectController
+2022-11-23T20:16:39  PID[6932] Information Message='DiagnosticsExtension.Controllers.CpuMonitoringController', Operation=DefaultHttpControllerActivator.Create
+2022-11-23T20:16:39  PID[6932] Information Message='DiagnosticsExtension.Controllers.CpuMonitoringController', Operation=HttpControllerDescriptor.CreateController
+2022-11-23T20:16:39  PID[6932] Information Message='Selected action 'GetActiveSessionDetails()'', Operation=ApiControllerActionSelector.SelectAction
+2022-11-23T20:16:39  PID[6932] Information Operation=HttpActionBinding.ExecuteBindingAsync
+2022-11-23T20:16:39  PID[6932] Information Message='Selected formatter='JsonMediaTypeFormatter', content-type='application/json; charset=utf-8'', Operation=DefaultContentNegotiator.Negotiate
+2022-11-23T20:16:39  PID[6932] Information Message='Action returned 'StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.ObjectContent`1[[DaaS.ActiveMonitoringSession, DaaS, Version=3.2.22119.1, Culture=neutral, PublicKeyToken=null]], Headers:
+{
+  Content-Type: application/json; charset=utf-8
+}'', Operation=ReflectedHttpActionDescriptor.ExecuteAsync
+2022-11-23T20:16:39  PID[6932] Information Operation=ApiControllerActionInvoker.InvokeActionAsync, Status=200 (OK)
+2022-11-23T20:16:39  PID[6932] Information Operation=CpuMonitoringController.ExecuteAsync, Status=200 (OK)
+2022-11-23T20:16:39  PID[6932] Information Response, Status=200 (OK), Method=GET, Url=https://cfdiweb20221122173229.scm.azurewebsites.net/daas/api/CpuMonitoring/activesessiondetails?api-version=2015-08-01, Message='Content-type='application/json; charset=utf-8', content-length=unknown'
+2022-11-23T20:16:39  PID[6932] Information Operation=JsonMediaTypeFormatter.WriteToStreamAsync
+2022-11-23T20:16:39  PID[6932] Information Operation=CpuMonitoringController.Dispose
+2022-11-23T20:22:09  PID[6932] Verbose     SnapshotHelper::TakeSnapshotTimerCallback
+2022-11-23T20:22:09  PID[6932] Verbose     SnapshotHelper::TakeSnapshotInternal - no new files in CodeGen
+2022-11-23T20:42:09  PID[6932] Verbose     SnapshotHelper::TakeSnapshotTimerCallback
+2022-11-23T20:42:09  PID[6932] Verbose     SnapshotHelper::TakeSnapshotInternal - no new files in CodeGen
+2022-11-23T20:42:09  PID[6932] Verbose     SnapshotHelper::TakeSnapshot time since last: 00:20:00.0653275

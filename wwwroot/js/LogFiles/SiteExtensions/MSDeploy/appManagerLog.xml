@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<entries>
+  <entry time="2022-11-22T23:35:12.5764796+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [d86f6638-6027-4710-acd9-81a8b8cb85cd] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-22T23:35:12.873391+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-22T23:35:12.9061392+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-22T23:35:12.9061392+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [d86f6638-6027-4710-acd9-81a8b8cb85cd] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-22T23:38:25.7702799+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [b55f2307-e24a-4d0a-a88d-639f16bd9269] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-22T23:38:26.0203204+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-22T23:38:26.0383022+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-22T23:38:26.0383022+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [b55f2307-e24a-4d0a-a88d-639f16bd9269] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T02:50:12.0205682+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [cdf039b9-ee6a-4b6a-a34c-f783d4328fc1] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T02:50:12.2861886+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T02:50:12.2861886+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T02:50:12.2861886+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [cdf039b9-ee6a-4b6a-a34c-f783d4328fc1] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T03:05:30.3004296+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [0cfc5f04-a13d-4f37-b204-06b0e8c203cd] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T03:05:30.3160595+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T03:05:30.3160595+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T03:05:30.3160595+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [0cfc5f04-a13d-4f37-b204-06b0e8c203cd] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T04:42:13.4195188+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [9e617b14-75fd-40ff-a5ae-219b95cc4b4d] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T04:42:13.7587193+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T04:42:13.777911+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T04:42:13.777911+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [9e617b14-75fd-40ff-a5ae-219b95cc4b4d] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T17:22:10.5700182+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [a9f8a7a0-aba0-42d8-91f8-a77e3e94f53d] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T17:22:10.8557124+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T17:22:10.8669069+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T17:22:10.8669069+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [a9f8a7a0-aba0-42d8-91f8-a77e3e94f53d] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T17:44:19.196622+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [7b433c56-d9ee-4cf0-a13f-e49dc2507237] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T17:44:19.2121414+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T17:44:19.2121414+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T17:44:19.2121414+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [7b433c56-d9ee-4cf0-a13f-e49dc2507237] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T17:50:42.4750327+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [5ceaa9ab-fa72-499a-abb7-16a832820621] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T17:50:42.489698+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T17:50:42.489698+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T17:50:42.489698+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [5ceaa9ab-fa72-499a-abb7-16a832820621] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T17:52:01.6126632+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [eb9e6aa9-add3-4b01-aec1-5a6a697f9058] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T17:52:01.6282863+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T17:52:01.6282863+00:00" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T17:52:01.6282863+00:00" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [eb9e6aa9-add3-4b01-aec1-5a6a697f9058] Post-deployment operations complete.</message>
+  </entry>
+  <entry time="2022-11-23T20:55:25.6498324Z" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [5165412b-829a-4b5e-b27c-87ca9b8d2f8e] WebDeploy operation complete. Performing post-deployment operations.</message>
+  </entry>
+  <entry time="2022-11-23T20:55:25.9779708Z" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] Skip function trigger and logicapp sync because function is not enabled.</message>
+  </entry>
+  <entry time="2022-11-23T20:55:25.9936243Z" type="Message">
+    <message>[Verbose] [user: $CFDIWEB20221122173229] AutoSwap is not enabled</message>
+  </entry>
+  <entry time="2022-11-23T20:55:25.9936243Z" type="Message">
+    <message>[Information] [user: $CFDIWEB20221122173229] [5165412b-829a-4b5e-b27c-87ca9b8d2f8e] Post-deployment operations complete.</message>
+  </entry>
+</entries>

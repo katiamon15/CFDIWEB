@@ -13,16 +13,20 @@ using System.Text;
 using System;
 using System.IO;
 using iTextSharp.text.pdf.qrcode;
-
+using Azure;
+using System.Threading;
 
 namespace CFDIWEB.Services
 {
     public class PdfService : IPdf
     {
 
-        public void Pdfversion(List<byte[]> files)
+        public async Task<List<byte[]>> Pdfversion(List<byte[]> files)
         {
             List<MemoryStream> streams = new List<MemoryStream>();
+
+            List<byte[]> rutaspdf = new List<byte[]>();
+
             foreach (byte[] file in files)
             {
                 XmlDocument xmlDoc= new XmlDocument();
@@ -84,7 +88,7 @@ namespace CFDIWEB.Services
 
                     //paso 2 proceso de lectura apñicandolo con razor y haciendo pdf  
 
-                    string path = AppDomain.CurrentDomain.BaseDirectory;
+                    string path = @"C:\DesagarCFDIWEB\Plantillas\";
                     string pathHTMLTemp = path + "mihtml.html"; //temporal 
                     string pathplantilla = path + "Plantilla.html";
                     string shtml = Razor.GetStringOffile(pathplantilla);
@@ -113,11 +117,18 @@ namespace CFDIWEB.Services
                     using (Process oProcess = Process.Start(oprocessStartInfo))
                     {
                         oProcess.WaitForExit();
+
                     }
 
+                    var rutapdf = @"C:\DesagarCFDIWEB\Plantillas\" + ocomprobantes.TimbreFiscalDigital.UUID + ".pdf";
+                    byte[] bytes = await File.ReadAllBytesAsync(rutapdf);
+
+                    rutaspdf.Add(bytes);
 
                     //elimminar el temporral
                     File.Delete(pathHTMLTemp);
+
+                   
 
                 }//if 4.0
 
@@ -155,12 +166,13 @@ namespace CFDIWEB.Services
 
                             }
                         }
-                    }//using
+                    }//using CFDIWEB.Services.PdfService
+
 
 
                     //paso 2 proceso de lectura apñicandolo con razor y haciendo pdf  
 
-                    string path = AppDomain.CurrentDomain.BaseDirectory;
+                    string path = @"C:\DesagarCFDIWEB\Plantillas\";
                     string pathHTMLTemp = path + "mihtml.html"; //temporal 
                     string pathplantilla = path + "Plantilla.html";
                     string shtml = Razor.GetStringOffile(pathplantilla);
@@ -193,6 +205,10 @@ namespace CFDIWEB.Services
                         oProcess.WaitForExit();
                     }
 
+                    var rutapdf = @"C:\DesagarCFDIWEB\Plantillas\" + ocomprobante.TimbreFiscalDigital.UUID + ".pdf";
+                    byte[] bytes = await File.ReadAllBytesAsync(rutapdf);
+
+                    rutaspdf.Add(bytes);
 
                     //elimminar el temporral
                     File.Delete(pathHTMLTemp);
@@ -205,8 +221,12 @@ namespace CFDIWEB.Services
                 streams.ForEach(s => s.Dispose());
             }
 
+            return rutaspdf;
+
         }
-        
+
+         
+
         public class Razor
         {
             public static string GetStringOffile(string pathFile)
@@ -217,7 +237,8 @@ namespace CFDIWEB.Services
 
         }// public class Razor
 
-     }// servic
+
+    }// servic
 
 
 }//namespace

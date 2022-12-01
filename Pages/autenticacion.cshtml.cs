@@ -9,9 +9,9 @@ using System.Threading;
 
 namespace CFDIWEB.Pages;
 
-public class IndexModel : PageModel
+public class autenticacionModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    private readonly ILogger<autenticacionModel> _logger;
 
     private IDescargaMasiva _descargaservice;
     [BindProperty]
@@ -19,7 +19,7 @@ public class IndexModel : PageModel
     public SubirArchivoModel SubirArchivo { get; set; }
 
 
-    public IndexModel(ILogger<IndexModel> logger, IDescargaMasiva  descargaservice)
+    public autenticacionModel(ILogger<autenticacionModel> logger, IDescargaMasiva  descargaservice)
     {
         _logger = logger;
         _descargaservice = descargaservice;

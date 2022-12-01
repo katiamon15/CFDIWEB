@@ -19,6 +19,7 @@ using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO.Compression;
+using iTextSharp.text.pdf.qrcode;
 
 namespace CFDIWEB.Services
 {
@@ -31,10 +32,12 @@ namespace CFDIWEB.Services
         private IDescargaService _descargaService;
         private MyAppDbContext _context;
         private readonly IHttpContextAccessor _accessor;
+        private IAzureStorage _storage;
 
 
         public DescargaMasiva(ILogger<DescargaMasiva> logger, IAutenticacionService authService,ISolicitudService solicitudService
-            , MyAppDbContext context, IHttpContextAccessor accessor, IVerificacionService verificacionService, IDescargaService descargaService)
+            , MyAppDbContext context, IHttpContextAccessor accessor, IVerificacionService verificacionService, IDescargaService descargaService
+            , IAzureStorage storage)
         {
             _logger = logger;
             _authService = authService;
@@ -43,6 +46,7 @@ namespace CFDIWEB.Services
             _accessor = accessor;
             _descargaService = descargaService;
             _verificacionService = verificacionService;
+            _storage = storage;
         }
 
         //Autenticacion
@@ -170,10 +174,10 @@ namespace CFDIWEB.Services
 
 
             _logger.LogInformation("Enviando solicitud de solicitud de descarga.");
-            SolicitudResult solicitudResult = await _solicitudService.SendSoapRequestAsync(solicitudRequest, certificadoSat, cancellationToken);
+               //SolicitudResult solicitudResult = await _solicitudService.SendSoapRequestAsync(solicitudRequest, certificadoSat, cancellationToken);
 
-            /*SolicitudResult solicitudResult = SolicitudResult.CreateInstance("a804e8a7-efac-4333-92ac-83a79c649f2d",
-                "5000", "Solicitud aceptada", HttpStatusCode.Accepted, "Mensaje respuesta SAT");*/
+            SolicitudResult solicitudResult = SolicitudResult.CreateInstance("a804e8a7-efac-4333-92ac-83a79c649f2d",
+                "5000", "Solicitud aceptada", HttpStatusCode.Accepted, "Mensaje respuesta SAT");
 
             Solicitud solicitudEntity = new Solicitud();
             solicitudEntity.FechaInicial = fechaInicio;
@@ -224,12 +228,13 @@ namespace CFDIWEB.Services
                 List<string> paquetes = new List<string>();
 
                 paquetes.Add(idSat);
-                var rutaTarget = @"C:\Users\nousfera\Documents\Descarga CFDI\unzip";
+
+
+                var rutaTarget = @"C:\DesagarCFDIWEB\XMLUNZIP";
+
                 foreach (string paquete in paquetes)
                 {
-                    var rutaZip = @$"C:\Users\nousfera\Documents\Descarga CFDI\{paquete}.zip";
-
-
+                    var rutaZip = @$"C:\DesagarCFDIWEB\PaquetesZip\{paquete}.zip";
 
                     ZipFile.ExtractToDirectory(rutaZip, rutaTarget);
                 }
@@ -338,16 +343,18 @@ namespace CFDIWEB.Services
                     _logger.LogInformation("PackageId:{0}", idsPaquete);
 
                 }
+
                 //Descarga
 
-                var rutaDescarga = @"C:\Users\nousfera\Documents\Descarga CFDI";
+                var rutaDescarga = @"C:\DesagarCFDIWEB\PaquetesZip";
+
                 _logger.LogInformation("Buscando el servicio de verificacion en el contenedor de servicios (Dependency Injection).");
-                List<string> paquetes = new List<string>();
+                 List<string> paquetes = new List<string>();
                  foreach (string? idsPaquete in verificacionResult.PackageIds)
                  {
                      _logger.LogInformation("Creando solicitud de descarga.");
                      var descargaRequest = DescargaRequest.CreateInstace(idsPaquete, SolicitudEntity.rfcSolicitante, accessToken);
-
+                
                      _logger.LogInformation("Enviando solicitud de descarga.");
                      DescargaResult? descargaResult = await _descargaService.SendSoapRequestAsync(descargaRequest,
                          certificadoSat,
@@ -362,26 +369,41 @@ namespace CFDIWEB.Services
                      
                     /*Respaldo respaldo =new Respaldo();
                     respaldo.IdSolicitudSat = idsPaquete;
-                    respaldo.rutadescarga = @"C:\Users\nousfera\Documents\respaldocfdi";
-                    _context.Respaldos.Add(respaldo);
+                    respaldo.rutadescarga = $"{idsPaquete}.zip";
+                    _context.Respaldo.Add(respaldo);
                     _context.SaveChanges();*/
 
+                    paquetes.Add(idsPaquete);
 
-                     paquetes.Add(idsPaquete);
+
+                    var stream = new MemoryStream(paqueteContenido);
+
+                    IFormFile file = new FormFile(stream, 0, paqueteContenido.Length, $"{idsPaquete}.zip", $"{idsPaquete}.zip");
+
+                    _storage.UploadAsync(file);
 
 
-                 }   
-               var rutaTarget = @"C:\Users\nousfera\Documents\Descarga CFDI\unzip";
+
+                 }
+
+               var rutaTarget = @"C:\DesagarCFDIWEB\XMLUNZIP";
+
                foreach (string paquete in paquetes)
                {
-                   var rutaZip = @$"C:\Users\nousfera\Documents\Descarga CFDI\{paquete}.zip";
+                   var rutaZip = @$"C:\DesagarCFDIWEB\PaquetesZip\{paquete}.zip";
+
                    ZipFile.ExtractToDirectory(rutaZip, rutaTarget);
                }
-     
-               _logger.LogInformation("Proceso terminado.");
+
+  
+                _logger.LogInformation("Proceso terminado.");
             }
 
- 
+         
+
+            
+
+
         }
 
 

@@ -1,0 +1,8 @@
+2022-11-23T18:00:39  PID[6128] Information 11/23/2022 6:00:39 PM [[3.2]] [dw0sdwk0000HH] DaasRunner.exe with version 3.2.22119.1 and ProcessId=6128 started
+2022-11-23T18:00:39  PID[6128] Information 11/23/2022 6:00:39 PM [[3.2]] [dw0sdwk0000HH] Checking DaaS bits and updating if required
+2022-11-23T18:00:39  PID[6128] Information 11/23/2022 6:00:39 PM [[3.2]] [dw0sdwk0000HH] Found DaasRunner process running in D:\DWASFiles\Sites\#1CFDIWEB20221122173229\Temp\jobs\continuous\DaaS\5t3y35pd.ed4\DaasRunner.exe with version 3.2.22119.1
+2022-11-23T18:00:39  PID[6128] Information 11/23/2022 6:00:39 PM [[3.2]] [dw0sdwk0000HH] [DaasRunner] New version (3.2.22119.1) is the same as existing version 3.2.22119.1
+2022-11-23T18:00:39  PID[6128] Information 11/23/2022 6:00:39 PM [[3.2]] [dw0sdwk0000HH] [daasconsole.exe] New version (3.2.22119.1) is the same as existing version 3.2.22119.1
+2022-11-23T18:00:40  PID[6128] Information 11/23/2022 6:00:40 PM [[3.2]] [dw0sdwk0000HH] Done checking DaaS bits for any new updates
+2022-11-23T18:02:00  PID[6128] Information 11/23/2022 6:02:00 PM [[3.2]] [dw0sdwk0000HH] Starting cleanup for Completed Sessions MaxDiagnosticSessionsToKeep = [10] MaxNumberOfDaysForSessions= [20]
+2022-11-23T18:32:00  PID[6128] Information 11/23/2022 6:32:00 PM [[3.2]] [dw0sdwk0000HH] Starting cleanup for Completed Sessions MaxDiagnosticSessionsToKeep = [10] MaxNumberOfDaysForSessions= [20]

@@ -10,7 +10,6 @@
     "CFDIWEB": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:7089/usuarios",
       "applicationUrl": "https://localhost:7089/",
       "sqlDebugging": true
     }

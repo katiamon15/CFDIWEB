@@ -1,0 +1,31 @@
+2022-11-23T18:00:27 sandboxproc.exe D:\DWASFiles\Sites\CFDIWEB20221122173229\Temp\applicationhost.config True True
+2022-11-23T18:00:27 env XPROC_TYPENAME=Microsoft.Web.Hosting.Transformers.ApplicationHost.SiteExtensionHelper, Microsoft.Web.Hosting, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+2022-11-23T18:00:27 env XPROC_METHODNAME=Transform
+2022-11-23T18:00:27 Start 'Microsoft.AspNetCore.AzureAppServices.SiteExtension' site extension transform
+2022-11-23T18:00:27 StartSection Executing InsertIfMissing (transform line 7, 23)
+2022-11-23T18:00:27 on /configuration/system.webServer
+2022-11-23T18:00:28 Applying to 'configuration' element (no source line info)
+2022-11-23T18:00:28 EndSection Done executing InsertIfMissing
+2022-11-23T18:00:28 StartSection Executing InsertIfMissing (transform line 8, 16)
+2022-11-23T18:00:28 on /configuration/system.webServer/runtime
+2022-11-23T18:00:28 Applying to 'system.webServer' element (no source line info)
+2022-11-23T18:00:28 Inserted 'runtime' element
+2022-11-23T18:00:28 EndSection Done executing InsertIfMissing
+2022-11-23T18:00:28 StartSection Executing InsertIfMissing (transform line 9, 31)
+2022-11-23T18:00:28 on /configuration/system.webServer/runtime/environmentVariables
+2022-11-23T18:00:28 Applying to 'runtime' element (no source line info)
+2022-11-23T18:00:28 EndSection Done executing InsertIfMissing
+2022-11-23T18:00:28 StartSection Executing InsertOrAppendAttribute (transform line 10, 406)
+2022-11-23T18:00:28 on /configuration/system.webServer/runtime/environmentVariables/add[@name='DOTNET_ADDITIONAL_DEPS']
+2022-11-23T18:00:28 Applying to 'environmentVariables' element (no source line info)
+2022-11-23T18:00:28 EndSection Done executing InsertOrAppendAttribute
+2022-11-23T18:00:28 StartSection Executing InsertOrAppendAttribute (transform line 11, 158)
+2022-11-23T18:00:28 on /configuration/system.webServer/runtime/environmentVariables/add[@name='DOTNET_SHARED_STORE']
+2022-11-23T18:00:28 Applying to 'environmentVariables' element (no source line info)
+2022-11-23T18:00:28 EndSection Done executing InsertOrAppendAttribute
+2022-11-23T18:00:28 StartSection Executing InsertOrAppendAttribute (transform line 12, 146)
+2022-11-23T18:00:28 on /configuration/system.webServer/runtime/environmentVariables/add[@name='ASPNETCORE_HOSTINGSTARTUPASSEMBLIES']
+2022-11-23T18:00:28 Applying to 'environmentVariables' element (no source line info)
+2022-11-23T18:00:28 EndSection Done executing InsertOrAppendAttribute
+2022-11-23T18:00:28 Successful 'C:\home\SiteExtensions\Microsoft.AspNetCore.AzureAppServices.SiteExtension\applicationHost.xdt' site extension transform
+2022-11-23T18:00:28 sandboxproc.exe complete successfully. Elapsed = 1643.00 ms

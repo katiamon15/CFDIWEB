@@ -2,6 +2,7 @@
 {
     public interface IPdf
     {
-        public void Pdfversion(List<byte[]> files);
+        public Task<List<byte[]>> Pdfversion(List<byte[]> files);
+        
     }
 }

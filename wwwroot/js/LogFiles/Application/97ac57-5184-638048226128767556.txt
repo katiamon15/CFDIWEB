@@ -1,0 +1,1 @@
+2022-11-23T17:50:11  PID[5184] Information 11/23/2022 5:50:11 PM [[3.2]] [dw0sdwk0000HH] Starting cleanup for Completed Sessions MaxDiagnosticSessionsToKeep = [10] MaxNumberOfDaysForSessions= [20]

@@ -7,6 +7,11 @@ using System;
 using System.Text;
 using System.Threading;
 using CFDIWEB.Services;
+using System.Net;
+using Microsoft.CodeAnalysis.RulesetToEditorconfig;
+using Grpc.Core;
+using Microsoft.AspNetCore.Hosting.Server;
+using CFDIWEB.Models.Forms;
 
 namespace CFDIWEB.Pages
 {
@@ -14,21 +19,29 @@ namespace CFDIWEB.Pages
     {
         IPdf _pdfService;
 
+
+
         public pdfModel(IPdf pdfService)
         {
             _pdfService = pdfService;
         }
 
         [BindProperty]
+
         public PdfModels ArchivoPdf { get; set; }
 
         
         public void OnGet()
         {
 
+
         }
 
-        public async Task OnPostLeer()
+        
+
+
+
+        public async Task<FileResult> OnPostLeer()
         {
             Console.Write("Este es tu request");
             Console.Write(ArchivoPdf.ArchivoPdf);
@@ -41,15 +54,25 @@ namespace CFDIWEB.Pages
                 byte[] byteArray = memoryStream.ToArray();
                 files.Add(byteArray);
                 memoryStream.Dispose();
+
+               
             }
 
-            //var pdf = Convert.ToBase64String(files[0]);
+            List<byte[]> pdf  = await _pdfService.Pdfversion(files);
 
-            _pdfService.Pdfversion(files);
+            SolicitudForm osolitud = new SolicitudForm();
+            
+
+           
+
+            //Send the File to Download.
+            return File(pdf[0], "application/octet-stream","Formato.pdf");
 
         }
 
-         
+
+
+
 
 
     }

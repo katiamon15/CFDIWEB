@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CFDIWEB.Pages;
 using Microsoft.AspNetCore.Builder;
+using CFDIWEB.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var cns = "Data Source  = .; Initial Catalog = master; Integrated security= True; TrustServerCertificate=True";
+var cns = "Server=tcp:nousfera.database.windows.net,1433;Initial Catalog=nosufera;Persist Security Info=False;User ID=Sqlnousfera;Password=Nousfera2022;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
 builder.Services.AddDbContext<MyAppDbContext>(options => {
     options.UseSqlServer(cns);
@@ -21,6 +22,11 @@ builder.Services.AddSession(options =>{
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
 
 builder.Services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 builder.Services.AddHttpClient<IHttpSoapClient, HttpSoapClient>();
@@ -32,13 +38,14 @@ builder.Services.AddTransient<IDescargaService, DescargaService>();
 builder.Services.AddTransient<IPoliza, Poliza>();
 builder.Services.AddTransient<IUsuarios, UsuarioService>();
 builder.Services.AddTransient<IPdf, PdfService>();
+builder.Services.AddTransient<IAzureStorage, AzureStorage>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/usuarios", ""));
 
 var app = builder.Build();
 

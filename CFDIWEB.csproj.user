@@ -13,6 +13,7 @@
     <_SelectedScaffolderCategoryPath>root/Common</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ControllerDialogWidth>650</WebStackScaffolding_ControllerDialogWidth>
     <ActiveDebugProfile>CFDIWEB</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\CFDIWEB\Properties\PublishProfiles\CFDIWEB20221124014521 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

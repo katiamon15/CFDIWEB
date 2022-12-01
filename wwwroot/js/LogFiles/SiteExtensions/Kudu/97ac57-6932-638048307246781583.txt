@@ -1,0 +1,6 @@
+2022-11-23T20:05:23  PID[6932] Verbose     SnapshotHelper::TakeSnapshotTimerCallback
+2022-11-23T20:05:23  PID[6932] Verbose     SnapshotHelper::TakeSnapshotInternal - no new files in CodeGen
+2022-11-23T20:25:23  PID[6932] Verbose     SnapshotHelper::TakeSnapshotTimerCallback
+2022-11-23T20:25:23  PID[6932] Verbose     SnapshotHelper::TakeSnapshotInternal SUCCESS - Process
+2022-11-23T20:25:24  PID[6932] Verbose     SnapshotHelper::TakeSnapshotInternal SUCCESS - File.Copy
+2022-11-23T20:25:24  PID[6932] Verbose     SnapshotHelper::TakeSnapshot time since last: 00:20:00.3206749

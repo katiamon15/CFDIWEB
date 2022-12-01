@@ -9,7 +9,7 @@ namespace CFDIWEB.Helpers
         {
             return new X509Certificate2(certificate,
                 password,
-                X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+                X509KeyStorageFlags.UserKeySet);
         }
     }
 }

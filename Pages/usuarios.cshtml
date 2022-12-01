@@ -76,7 +76,8 @@
          
          
             if (data.responseMessage == "" || data.responseMessage == undefined) {
-                window.location.replace('https://localhost:7089/menu');
+          
+                window.location.pathname = '/menu';
             }else{
                 alert(data.responseMessage)
             }
