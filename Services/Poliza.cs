@@ -165,7 +165,7 @@ namespace CFDIWEB.Services
 
         private List<Cfdi> leerCFDI()
         {
-            DirectoryInfo di = new DirectoryInfo(@"C:\DesagarCFDIWEB\XMLUNZIP");
+            DirectoryInfo di = new DirectoryInfo(@"C:\DesagarCFDIWEB\unzip");
             Console.WriteLine("No search pattern returns:");
 
             List<Cfdi> listaCFDIS =  new List<Cfdi>();                                         

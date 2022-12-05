@@ -23,6 +23,12 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\wkhtmltopdf\wkhtmltoimage.exe" />
+    <None Include="wwwroot\wkhtmltopdf\wkhtmltopdf.exe" />
+    <None Include="wwwroot\wkhtmltopdf\wkhtmltox.dll" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />

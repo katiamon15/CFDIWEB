@@ -107,7 +107,7 @@ namespace CFDIWEB.Services
                     //creamos el temporal
                     File.WriteAllText(pathHTMLTemp, result);
 
-                    string pathhtmlpdf = @"C:\CFDIWEB\Pdf\wkhtmltopdf\wkhtmltopdf.exe";
+                    string pathhtmlpdf = @"C:\CFDIWEB\wwwroot\wkhtmltopdf\wkhtmltopdf.exe";
 
                     ProcessStartInfo oprocessStartInfo = new ProcessStartInfo();
                     oprocessStartInfo.UseShellExecute = false;
@@ -191,7 +191,7 @@ namespace CFDIWEB.Services
                     File.WriteAllText(pathHTMLTemp, result);
 
 
-                    string pathhtmlpdf = @"C:\CFDIWEB\Pdf\wkhtmltopdf\wkhtmltopdf.exe";
+                    string pathhtmlpdf = @"C:\CFDIWEB\wwwroot\wkhtmltopdf\wkhtmltopdf.exe";
 
                     
                     ProcessStartInfo oprocessStartInfo = new ProcessStartInfo();

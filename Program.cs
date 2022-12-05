@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CFDIWEB.Pages;
 using Microsoft.AspNetCore.Builder;
-using CFDIWEB.Repositorio;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,6 @@ builder.Services.AddTransient<IDescargaService, DescargaService>();
 builder.Services.AddTransient<IPoliza, Poliza>();
 builder.Services.AddTransient<IUsuarios, UsuarioService>();
 builder.Services.AddTransient<IPdf, PdfService>();
-builder.Services.AddTransient<IAzureStorage, AzureStorage>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 
@@ -75,7 +74,7 @@ app.MapControllerRoute(
 );
 
 app.UseSession();
-    
+
 
 app.MapRazorPages();
 

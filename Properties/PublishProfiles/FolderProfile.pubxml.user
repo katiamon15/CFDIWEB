@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\cfdiweb</_PublishTargetUrl>
+    <History>True|2022-12-05T03:32:32.9195733Z;False|2022-12-04T21:30:13.0117644-06:00;True|2022-12-04T21:14:03.0420367-06:00;True|2022-12-03T10:05:43.1422525-06:00;True|2022-12-02T09:41:21.8657697-06:00;True|2022-12-01T22:59:23.9548657-06:00;True|2022-12-01T22:16:09.8813670-06:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
